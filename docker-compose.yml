@@ -1,0 +1,47 @@
+
+services:
+  frontend:
+    build:
+      context: ./amigos-frontend
+    ports:
+      - "8082:80"
+    networks:
+      - amigos-network
+
+  backend:
+    build:
+      context: ./amigos-backend
+    ports:
+      - "8081:80"
+    networks:
+      - amigos-network
+    depends_on:
+      - db
+
+  db:
+    image: mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: amigos_db
+      MYSQL_USER: user
+      MYSQL_PASSWORD: userpassword
+    ports:
+      - "3307:3306"
+    networks:
+      - amigos-network
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    environment:
+      PMA_HOST: db
+      PMA_PORT: 3306
+      PMA_USER: user
+      PMA_PASSWORD: userpassword
+    ports:
+      - "8083:80"
+    networks:
+      - amigos-network
+
+networks:
+  amigos-network:
+    driver: bridge
