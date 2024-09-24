@@ -1,0 +1,51 @@
+<div class="overflow-hidden">
+    <div class="row h-screen">
+        <div class="col-md-6 flex items-center justify-center p-20 flex-col">
+            <!-- Adjusted logo positioning -->
+            <div class="loginContainer flex flex-col justify-center items-center text-center">
+                <!-- Logo inside the login container for absolute positioning -->
+                <img [src]="logo" alt="Logo" class="logo drop-shadow-md">
+                
+                <form [formGroup]="loginForm" (ngSubmit)="submit(this.loginForm.value)" #formDir="ngForm" class="mt-12">
+                    
+                    <div class="input-field">
+                        <input 
+                          type="text" 
+                          id="username" 
+                          formControlName="username" 
+                          placeholder=" " 
+                          required
+                        />
+                        <label for="username">Usuário</label>
+                      </div>
+                      
+                      <div class="input-field">
+                        <input 
+                          [type]="passwordInputType" 
+                          id="password" 
+                          formControlName="password" 
+                          placeholder=" " 
+                          required
+                        />
+                        <label for="password">Senha</label>
+                        <mat-icon class="toggle-visibility" (click)="toggleVisibility()">{{ passwordIcon }}</mat-icon>
+                      </div>
+
+                    <div>
+                        <button 
+                            type="submit"
+                            class="btn btn-primary btn-sm text-white"
+                            [disabled]="!loginForm.valid"
+                        >
+                            ENTRAR
+                        </button>
+                    </div>
+                    <br/>
+                </form>
+            </div>
+        </div>
+        <div class="col-md-6 vh-100" style="background-color: #639EE1;">
+            <img class="kids max-w-full h-auto" [src]="kids"/>
+        </div>
+    </div>
+</div>

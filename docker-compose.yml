@@ -1,22 +1,31 @@
-
 services:
   frontend:
     build:
-      context: ./amigos-frontend
+      context: /mnt/c/Users/lihfa/Documents/teste/amigos-do-rei/amigos-frontend
     ports:
-      - "8082:80"
+      - "8082:4200"
     networks:
       - amigos-network
+    volumes:
+      - type: bind
+        source: /mnt/c/Users/lihfa/Documents/teste/amigos-do-rei/amigos-frontend
+        target: /app
+      - /app/node_modules
+    environment:
+      - CHOKIDAR_USEPOLLING=true
 
   backend:
     build:
-      context: ./amigos-backend
+      context: /mnt/c/Users/lihfa/Documents/teste/amigos-do-rei/amigos-backend
     ports:
       - "8081:80"
     networks:
       - amigos-network
     depends_on:
       - db
+    volumes:
+      - /mnt/c/Users/lihfa/Documents/teste/amigos-do-rei/amigos-backend:/var/www/html
+      - /var/www/html/vendor
 
   db:
     image: mysql:8.0
