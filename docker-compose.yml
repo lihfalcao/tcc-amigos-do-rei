@@ -30,10 +30,10 @@ services:
   db:
     image: mysql:8.0
     environment:
-      MYSQL_ROOT_PASSWORD: rootpassword
-      MYSQL_DATABASE: amigos_db
-      MYSQL_USER: user
-      MYSQL_PASSWORD: userpassword
+      MYSQL_ROOT_PASSWORD: root  # Define a senha do root
+      MYSQL_DATABASE: amigos_db    # Banco de dados a ser criado
+      MYSQL_USER: user             # Cria um usuário regular
+      MYSQL_PASSWORD: userpassword  # Senha do usuário regular
     ports:
       - "3307:3306"
     networks:
@@ -44,8 +44,8 @@ services:
     environment:
       PMA_HOST: db
       PMA_PORT: 3306
-      PMA_USER: user
-      PMA_PASSWORD: userpassword
+      PMA_USER: root
+      PMA_PASSWORD: root
     ports:
       - "8083:80"
     networks:

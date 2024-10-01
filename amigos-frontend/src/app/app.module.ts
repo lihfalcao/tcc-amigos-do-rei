@@ -7,9 +7,15 @@ import { AppRoutingModule } from './app-routing.module';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
+import { HttpClientModule } from '@angular/common/http';
+import { LoginService } from './services/login.service';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 @NgModule({
+  declarations: [
+  ],
   imports: [
+    HttpClientModule,
     BrowserModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
@@ -18,8 +24,10 @@ import { MatIconModule } from '@angular/material/icon';
     MatInputModule,
     MatIconModule,
     AppRoutingModule,
+    MatSnackBarModule,
   ],
-  providers: [],
-  bootstrap: [],
+  providers: [
+    LoginService,
+  ]
 })
 export class AppModule {}
