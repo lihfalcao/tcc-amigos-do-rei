@@ -50,41 +50,67 @@ button{
 
 .dropbtn {
     background-color: transparent;
-    color: rgba(142, 3, 174);
+    color: white;
     text-decoration: none;
     font-size: 16px;
     border: none;
     cursor: pointer;
     margin: 0 1em;
+    font-weight: bold;
+    position: relative;
+}
+
+.dropbtn span {
+    font-size: 12px;
+    margin-left: 5px;
 }
 
 .dropdown-content {
     display: none;
     position: absolute;
     top: 100%;
-    background-color: #f9f9f9;
+    right: 0;
+    background-color: rgba(254, 107, 171, 0.8);
     min-width: 140px;
+    border-radius: 8px;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
     z-index: 1;
     cursor: pointer;
+    overflow: hidden;
+    color: white;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+    left: auto;
+    right: 0;
 }
 
 .dropdown-content a {
-    color: rgba(142, 3, 174);
+    color: white;
     padding: 12px 16px;
     text-decoration: none;
     display: block;
 }
 
 .dropdown-content a:hover {
-    background-color: #ddd;
-}
-
-.dropdown:hover .dropdown-content {
-    display: block;
+    background-color: rgba(255, 255, 255, 0.1);
 }
 
 .selected {
     filter: drop-shadow(0px 4px 4px rgba(99, 20, 102, 0.8));
     color: #fff;
-  }
+}
+
+/* Ajustando o estilo do botão e do dropdown */
+.dropbtn::after {
+    content: '\25B2'; /* Código da seta para cima */
+    display: inline-block;
+    margin-left: 5px;
+    transform: rotate(180deg);
+    transition: transform 0.2s ease;
+}
+
+.dropdown:hover .dropbtn::after {
+    transform: rotate(0deg);
+}

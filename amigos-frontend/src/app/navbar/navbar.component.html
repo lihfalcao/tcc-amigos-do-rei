@@ -5,7 +5,7 @@
         <a class="button" [ngClass]="{'selected': actualPage == 'calendar' }" [routerLink]="['/calendario']"><img class="button-image" [src]="calendar"/></a>
         <a class="button" (click)="redirecionarParaWhatsApp()"><img class="button-image" [src]="message"/></a>
         <div class="dropdown">
-            <button class="dropbtn">Olá {{data.username}} <span>&#9662;</span></button>
+            <button class="dropbtn">Olá {{name}} <span>&#9662;</span></button>
             <div class="dropdown-content">
                 <a (click)="verPerfil()">Ver Perfil</a>
                 <a (click)="logout()">Logout</a>

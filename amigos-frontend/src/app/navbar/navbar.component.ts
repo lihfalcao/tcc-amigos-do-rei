@@ -28,7 +28,8 @@ export class NavbarComponent {
       this.calendar = '../../assets/images/calendar.png';
       this.message = '../../assets/images/message.png';
       this.logged = this.isLoggedIn();
-
+      this.name = localStorage.getItem('username');
+      console.log(localStorage);
     }
   
     isLoggedIn(): boolean{
@@ -43,9 +44,12 @@ export class NavbarComponent {
   
     logout(){
       if(confirm('Deseja realmente deslogar?')){
-        // this.logged = false;
-        // this.loginService.logout()
-        // this.router.navigate(["/login"]);
+        this.loginService.logout().subscribe(data =>{
+          localStorage.removeItem('auth_token');
+          localStorage.removeItem('username');
+
+          this.router.navigate(["/"]);
+        });
       };
     }
 

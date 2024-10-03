@@ -15,8 +15,8 @@ use App\Http\Controllers\UserController;
 |
 */
 
-// Rotas protegidas por Sanctum (auth:sanctum)
-Route::middleware('auth:sanctum', 'remember.me')->group(function () {
+// Rotas protegidas por CSRF e autenticação Sanctum
+Route::middleware(['auth:sanctum'])->group(function () {
     Route::put('/users/{user}', [UserController::class, 'update']);
     Route::delete('/users/{user}', [UserController::class, 'destroy']);
     Route::post('/logout', [UserController::class, 'logout']);

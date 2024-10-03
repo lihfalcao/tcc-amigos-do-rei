@@ -72,6 +72,7 @@ class UserController extends Controller
     // Login do usuário e gerar token
     public function login(Request $request)
     {
+        // Validação
         $credentials = $request->validate([
             'login' => 'required|string',
             'password' => 'required|string',
@@ -84,31 +85,30 @@ class UserController extends Controller
             return response()->json(['message' => 'Invalid credentials'], 401);
         }
 
+        // Criar token Sanctum
         $token = $user->createToken('auth_token')->plainTextToken;
+
+        // Dentro da função login, ao definir o cookie
         if ($credentials['rememberMe']) {
-            $rememberToken  = Str::random(10);
-            $user->remember_token = $rememberToken ;
+            $rememberToken = Str::random(10);
+            $user->remember_token = $rememberToken;
             $user->save();
 
-            // Armazene o token em um cookie que expira em 30 dias
-            Cookie::queue('remember_token', $token, 43200); // 30 dias
+            // Armazena no cookie com um caminho específico
+            Cookie::queue(Cookie::make('remember_token', $rememberToken, 43200, '/', null, false, true)); // Adicionando '/' como caminho
         }
-        
+
 
         return response()->json(['token' => $token, 'name' => $user->name], 200);
     }
 
+
+
     // Logout do usuário
-    public function logout()
+    public function logout(Request $request)
     {
-        Auth::logout();
-        Cookie::forget('remember_token');
-
-        Auth::user()->tokens()->delete();
-
-        return response()->json(['message' => 'Logged out successfully'], 200);
+        $request->user()->tokens()->delete(); 
+        return response()->json(['message' => 'Logged out successfully']);
     }
-
-   
 
 }

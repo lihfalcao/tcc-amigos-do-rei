@@ -68,6 +68,8 @@ export class LoginComponent {
             duration: 3000,
             panelClass: ['success-snackbar'],
           });
+          localStorage.setItem('username', response.name);  // Armazena o nome
+          localStorage.setItem('auth_token', response.token); // Armazena o token de autenticação
           this.router.navigate(['/home']); // Redireciona para a home
         },
         error => {
