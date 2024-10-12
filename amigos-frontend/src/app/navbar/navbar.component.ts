@@ -20,6 +20,7 @@ export class NavbarComponent {
     @Input() actualPage :string | undefined;
     logged: boolean = false;
     data:any;
+    userAvatar:any;
 
     constructor(private loginService: LoginService, private router: Router) { }
 
@@ -27,20 +28,9 @@ export class NavbarComponent {
       this.logo = '../../assets/images/logo-navbar.png';
       this.calendar = '../../assets/images/calendar.png';
       this.message = '../../assets/images/message.png';
-      this.logged = this.isLoggedIn();
       this.name = localStorage.getItem('username');
-      console.log(localStorage);
     }
   
-    isLoggedIn(): boolean{
-      // if(this.loginService.user){
-      //    this.data = this.loginService.getUser()
-      //  } else {
-      //   this.router.navigate(["/login"]);
-      //  }
-      // return this.loginService.isLoggedIn()
-      return true;
-    }
   
     logout(){
       if(confirm('Deseja realmente deslogar?')){
@@ -61,7 +51,7 @@ export class NavbarComponent {
 
 
     verPerfil(){
-      // this.router.navigate(["/meu-perfil"]);
+      this.router.navigate(["/meu-perfil"]);
     }
 
 }

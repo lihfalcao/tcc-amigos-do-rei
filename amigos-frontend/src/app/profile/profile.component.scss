@@ -1,0 +1,177 @@
+.perfil-container {
+    display: flex;
+    justify-content: space-around; /* Espaça igualmente os elementos */
+    align-items: center;
+    padding: 6em;
+    height: calc(100vh - 10em); /* Altura dinâmica */
+    gap: 4em; /* Espaçamento entre as colunas */
+    max-width: 100%; /* Usa toda a largura disponível */
+}
+
+.perfil-esquerdo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    width: 20%; /* Largura ajustada */
+}
+
+.perfil-avatar {
+    position: relative;
+    width: 12em;
+    height: 12em;
+    border-radius: 50%; /* Garante que o contêiner seja sempre circular */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.avatar {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; 
+    border-radius: 50%;
+    border: none; 
+}
+
+.perfil-avatar::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    border: 3px solid #9C27B0; 
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.edit-icon {
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+    width: 2.5em;
+    height: 2.5em;
+    background-color: white;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Sombra leve */
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.edit-icon mat-icon {
+    font-size: 1.5em;
+    color: #9C27B0; /* Cor do ícone */
+}
+
+/* Efeito hover */
+.edit-icon:hover {
+    background-color: #9C27B0;
+    color: white;
+    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.2); /* Sombra ao hover */
+}
+
+.edit-icon:hover mat-icon {
+    color: white; /* Cor do ícone ao hover */
+}
+
+
+.perfil-info h3 {
+    font-family: 'Fredoka', sans-serif;
+    font-size: 1.5em;
+    color: #FF4081;
+}
+
+.perfil-info p {
+    font-family: 'Fredoka', sans-serif;
+    font-size: 1.2em;
+    margin: 0;
+    color: #7e7e7e;
+}
+
+/* Cartões lado a lado com o azul maior que o roxo */
+.perfil-direito {
+    display: flex;
+    justify-content: space-between;
+    gap: 2em;
+}
+
+.card {
+    border-radius: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Fredoka', sans-serif;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    position: relative;
+}
+
+.card-azul {
+    background-color: #41C4FC;
+    color: white;
+    width: 40em; /* Maior largura para o cartão azul */
+    height: 35em; /* Maior altura para o cartão azul */
+}
+
+.card-roxo {
+    background-color: #D1C4E9;
+    color: white;
+    width: 20em; /* Largura menor para o cartão roxo */
+    height: 35em; /* Altura menor para o cartão roxo */
+}
+
+/* Retângulos internos */
+.card-interno {
+    width: 90%;
+    height: 90%;
+    background-color: rgba(255, 255, 255, 0.7);
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 1em;
+}
+
+/* Botões centralizados e menores */
+.perfil-botoes {
+    display: flex;
+    justify-content: center;
+    gap: 2em;
+    margin-top: -2em;
+    width: 100%;
+}
+
+button {
+    width: 6em; /* Botões menores */
+    height: 2.5em; /* Altura ajustada */
+    border-radius: 20px; /* Bordas mais arredondadas */
+    font-weight: bold;
+    font-size: 1.1em; /* Fonte um pouco menor */
+}
+
+/* Botão "Editar" (Azul Primário) */
+button.mat-button-primario {
+    background-color: #1565C0; /* Cor primária */
+    color: white;
+    margin-left: 7em;
+}
+
+button.mat-button-primario:hover {
+    background-color: #0D47A1; /* Tom mais escuro e harmonioso no hover */
+}
+
+/* Botão "Voltar" (Amarelo) */
+button.mat-button-voltar {
+    background-color: #F9C00D; /* Tom de amarelo */
+    color: white;
+}
+
+button.mat-button-voltar:hover {
+    background-color: #E5A800; /* Tom de amarelo mais escuro no hover */
+}
+

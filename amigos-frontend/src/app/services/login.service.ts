@@ -17,7 +17,6 @@ export class LoginService {
   getCsrfToken(): Observable<string> {
     return this.http.get<{ csrf_token: string }>(`${this.webUrl}/csrf-token`)
       .pipe(map(response => {
-        console.log('Token CSRF:', response.csrf_token); // Log do token
         return response.csrf_token;
       }));
   }
@@ -38,11 +37,10 @@ export class LoginService {
   logout(): Observable<any> {
     return this.getCsrfToken().pipe(
       switchMap(token => {
-        const accessToken = localStorage.getItem('auth_token');  // Exemplo de como você deve obter o token.
-        console.log(accessToken);
+        const accessToken = localStorage.getItem('auth_token'); 
         const headers = new HttpHeaders({
-            'Authorization': `Bearer ${accessToken}`,  // O token de acesso válido deve ser usado aqui.
-            'X-CSRF-TOKEN': token, // Chame o método CSRF, se necessário.
+            'Authorization': `Bearer ${accessToken}`,
+            'X-CSRF-TOKEN': token,
             'Content-Type': 'application/json',
         });
         return this.http.post(`${this.apiUrl}/logout`, {}, { headers, withCredentials: true });

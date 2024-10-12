@@ -1,0 +1,40 @@
+<app-navbar [actualPage]="'perfil'"></app-navbar>
+
+<div class="perfil-container">
+    <div class="perfil-esquerdo">
+        <div class="perfil-avatar">
+            <img [src]="userAvatar" alt="Avatar do usuário" class="avatar">
+            <div class="edit-icon" (click)="onUploadClick()">
+                <mat-icon>edit</mat-icon>
+            </div>
+            <input type="file" id="file-upload" accept="image/*" (change)="onFileSelected($event)" style="display: none;" />
+        </div>        
+        <div class="perfil-info">
+            <h3>Nome</h3>
+            <p>Professora Juniores</p>
+            <p>Email - Telefone</p>
+        </div>
+    </div>
+
+    <div class="perfil-direito">
+        <div class="card card-azul">
+            <div class="card-interno">
+                <h3>Amigos do Rei</h3>
+                <p>Ministério Infantil da IPB Bonsucesso</p>
+            </div>
+        </div>
+        <div class="card card-roxo">
+            <div class="card-interno">
+                <h3>Amigos do Rei</h3>
+                <p>Ministério Infantil da IPB Bonsucesso</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="perfil-botoes">
+    <button mat-raised-button class="mat-button-primario" (click)="editar()">Editar</button>
+    <button mat-raised-button class="mat-button-voltar" (click)="voltar()">Voltar</button>
+</div>
+
+<app-footer></app-footer>

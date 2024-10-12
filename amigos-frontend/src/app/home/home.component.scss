@@ -11,10 +11,11 @@
     justify-content: space-between;
     padding: 20px;
 }
-  
+
+/* Estilização para retângulos maiores e com sombras */
 .retangulo {
-    width: 15em;
-    height: 7.5em;
+    width: 18em; /* Aumenta a largura */
+    height: 9em; /* Aumenta a altura */
     margin-bottom: 2em;
     border-radius: 20px;
     display: flex;
@@ -22,27 +23,36 @@
     justify-content: center;
     text-align: center;
     color: white;
+    overflow: hidden;
+    word-wrap: break-word;
+    padding: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2); /* Adiciona sombra */
 }
-  
+
 .retangulo1 {
-    background-color: #41C4FC;
+    background-color: #41C4FC; /* Azul */
 }
-  
+
 .retangulo2 {
-    background-color: #8EECBF;
+    background-color: #8EECBF; /* Verde */
 }
-  
+
 .retangulo3 {
-    background-color: #FE6BAB;
+    background-color: #FE6BAB; /* Rosa */
 }
-  
+
+/* Área de informações (retângulo roxo) ajustada com sombra */
 .info {
     position: relative;
-    width: 35em;
-    height: 30em;
+    width: 40em; /* Aumenta a largura */
+    height: 35em; /* Aumenta a altura */
     margin-bottom: 1em;
     border-radius: 20px;
     background-color: rgba(141, 78, 218, 0.30);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2); /* Adiciona sombra */
 }
 
 .retangulo-interno {
@@ -55,7 +65,41 @@
     border-radius: 15px;
     padding: 20px;
     text-align: center;
+    overflow-y: auto; /* Permite scroll vertical quando o conteúdo ultrapassar o espaço */
+    max-height: 90%;
+    word-wrap: break-word;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2); /* Adiciona sombra no retângulo interno */
 }
+
+button {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    background: linear-gradient(135deg, #A78BFA, #C084FC); /* Gradiente de lavanda/violeta */
+    border: none;
+    padding: 10px 25px;
+    color: white;
+    font-size: 16px; /* Aumenta o tamanho da fonte */
+    font-weight: bold; /* Deixa o texto mais marcante */
+    border-radius: 30px; /* Bordas arredondadas */
+    cursor: pointer;
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.15); /* Sombra suave */
+    transition: all 0.3s ease; /* Transição suave para hover */
+}
+
+/* Estilo ao passar o mouse sobre o botão */
+button:hover {
+    background: linear-gradient(135deg, #7C4DFF, #9C27B0); /* Cor lavanda/violeta mais escura ao passar o mouse */
+    transform: scale(1.05); /* Efeito de "crescimento" suave */
+    box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.3); /* Aumenta a sombra */
+}
+
+/* Estilo ao pressionar o botão */
+button:active {
+    transform: scale(0.98); /* Efeito de "pressionado" */
+    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.2); /* Sombra reduzida */
+}
+
 
 .menu-container {
     width: 15em;
