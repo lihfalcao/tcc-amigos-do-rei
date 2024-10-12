@@ -1,16 +1,33 @@
-.footer{
+/* Garantir que a altura da página seja de 100% */
+html, body {
+    height: 100%;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+/* O conteúdo da página ocupa o restante do espaço */
+main {
+    flex: 1;
+}
+
+/* Footer fixado na parte inferior */
+.footer {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-image: linear-gradient(rgba(254,107,171,0), rgba(99,158,225, 1) ); 
+    background-image: linear-gradient(rgba(254,107,171,0), rgba(99,158,225, 1)); 
     height: 3em;
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+    left: 0;
 }
 
-p{
+p {
     font-size: smaller;
-    font-weight:500;
-    color:rgb(114, 114, 114);
-    margin-top: 2.5em;
+    font-weight: 500;
+    color: rgb(114, 114, 114);
     margin-right: 10px;
     margin-left: auto;
 }
