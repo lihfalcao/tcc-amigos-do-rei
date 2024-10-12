@@ -1,0 +1,112 @@
+
+.loginContainer {
+    background-color: rgba(249, 192, 13, 0.43); // fundo amarelo translúcido
+    height: 25em;
+    width: 22em;
+    border-radius: 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 0.5em;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); // sombra suave como na imagem
+    position: relative; // added this to allow absolute positioning of the logo
+}
+
+.logo {
+    position: absolute; // set the logo position to absolute
+    top: -9em; // adjust this value depending on the exact placement you want
+    left: 50%;
+    filter: drop-shadow(4px 4px 8px rgba(0, 0, 0, 0.3));
+    transform: translateX(-50%); // centers the logo horizontally
+    max-width: 15em; // set the size of the logo
+}
+
+.kids {
+    max-width: 100%;
+    height: auto;
+}
+
+.input-field {
+    position: relative;
+    margin-bottom: 2em;
+    width: 100%;
+  
+    input {
+      width: 251px;
+      padding: 1.25em 12px 0.5em 12px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      border: 1px solid #888;
+      border-radius: 8px;
+      background-color: white;
+      font-size: 1em;
+      outline: none;
+      transition: border-color 0.2s ease, padding-top 0.2s ease;
+  
+      &:focus {
+        border-color: #639EE1;
+      }
+  
+      &:focus + label,
+      &:not(:placeholder-shown) + label {
+        top: 0.2em; // Fica dentro do input, mas mais perto do topo
+        left: 12px;
+        font-size: 0.75em;
+        color: #aaa; // Um tom de cinza mais claro
+        background-color: transparent; // Remove fundo branco
+      }
+    }
+  
+    label {
+      position: absolute;
+      top: 1.25em;
+      left: 12px;
+      font-size: 1em;
+      color: #888;
+      pointer-events: none;
+      transition: 0.2s ease all;
+    }
+
+    .toggle-visibility {
+        position: absolute;
+        top: 50%;
+        right: 10px;
+        transform: translateY(-50%);
+        cursor: pointer;
+        color: #888;
+        
+        &:hover {
+          color: #639EE1;
+        }
+    }
+}
+
+button {
+    background-color: rgba(254, 109, 171, 1); // rosa claro inicial
+    border: none;
+    width: 80%;
+    padding: 0.75em 2em;
+    color: white;
+    font-family: 'Fredoka One', sans-serif;
+    font-size: large;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+
+    &:hover {
+        background-color: rgba(227, 79, 146, 1); // rosa mais escuro no hover
+    }
+
+    &:disabled {
+        background-color: rgba(254, 182, 212, 1); // rosa claro suave para o botão desabilitado
+        color: white; // manter o texto branco
+        cursor: not-allowed;
+    }
+}
+
+.row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
