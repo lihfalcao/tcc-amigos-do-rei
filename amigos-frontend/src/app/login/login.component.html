@@ -1,4 +1,4 @@
-<div class="overflow-hidden">
+<div>
     <div class="row h-screen">
         <div class="col-md-6 flex items-center justify-center p-20 flex-col">
             <!-- Adjusted logo positioning -->
@@ -6,31 +6,38 @@
                 <!-- Logo inside the login container for absolute positioning -->
                 <img [src]="logo" alt="Logo" class="logo drop-shadow-md">
                 
-                <form [formGroup]="loginForm" (ngSubmit)="submit(this.loginForm.value)" #formDir="ngForm" class="mt-12">
-                    
+                <form [formGroup]="loginForm" (ngSubmit)="submit()" #formDir="ngForm" class="mt-12">
                     <div class="input-field">
                         <input 
                           type="text" 
                           id="username" 
                           formControlName="username" 
                           placeholder=" " 
-                          required
+                          [ngClass]="{'is-invalid': loginForm.get('username')?.invalid && loginForm.get('username')?.touched}"
                         />
                         <label for="username">Usuário</label>
-                      </div>
-                      
-                      <div class="input-field">
+                    </div>
+                    
+                    <div class="input-field">
                         <input 
                           [type]="passwordInputType" 
                           id="password" 
                           formControlName="password" 
                           placeholder=" " 
-                          required
+                          [ngClass]="{'is-invalid': loginForm.get('password')?.invalid && loginForm.get('password')?.touched}"
                         />
                         <label for="password">Senha</label>
                         <mat-icon class="toggle-visibility" (click)="toggleVisibility()">{{ passwordIcon }}</mat-icon>
-                      </div>
+                    </div>
 
+                    <div class="remember-me">
+                        <label>
+                            <input type="checkbox" formControlName="rememberMe"> 
+                            <span class="remember-text">Lembrar senha</span>
+                        </label>
+                    </div>
+
+                    <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div> <!-- Exibe a mensagem de erro -->
                     <div>
                         <button 
                             type="submit"
@@ -41,11 +48,16 @@
                         </button>
                     </div>
                     <br/>
-                </form>
+                </form>                
             </div>
         </div>
         <div class="col-md-6 vh-100" style="background-color: #639EE1;">
-            <img class="kids max-w-full h-auto" [src]="kids"/>
-        </div>
+            <img class="kids max-w-full h-auto mb-4" [src]="kids" />
+        
+            <div class="row d-flex justify-content-center">
+                <img class="logo2 mx-4" [src]="logo2" alt="logo2" />
+                <img class="ipb-logo mx-4" [src]="ipb" alt="IPB Logo" />
+            </div>
+        </div>          
     </div>
 </div>

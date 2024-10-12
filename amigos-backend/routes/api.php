@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,6 +15,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+// Rotas protegidas por Sanctum (auth:sanctum)
+Route::middleware('auth:sanctum', 'remember.me')->group(function () {
+    Route::put('/users/{user}', [UserController::class, 'update']);
+    Route::delete('/users/{user}', [UserController::class, 'destroy']);
+    Route::post('/logout', [UserController::class, 'logout']);
 });
+
+// Rotas públicas
+Route::post('/login', [UserController::class, 'login']);
+Route::post('/users', [UserController::class, 'store']);
