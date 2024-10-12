@@ -18,31 +18,27 @@ class RememberMe
      */
     public function handle(Request $request, Closure $next)
     {
-        // Tenta a autenticação padrão do Sanctum
         if (Auth::guard('sanctum')->check()) {
             return $next($request);
         }
 
-        // Se a autenticação via Sanctum falhar, verifica o remember_token
         $rememberToken = $request->cookie('remember_token');
+        \Log::info('Remember token from cookie:', ['token' => $rememberToken]); // Log do cookie
 
         if ($rememberToken) {
-            // Verifique se o token existe e está associado a um usuário
             $user = User::where('remember_token', $rememberToken)->first();
 
             if ($user) {
-                // O usuário está autenticado
                 Auth::login($user);
-                // Crie um token Sanctum se necessário
-                $token = $user->createToken('YourAppName')->plainTextToken;
-                // Adicione o token à resposta, se necessário
-                return response()->json(['token' => $token], 200);
+                \Log::info('User logged in:', ['user_id' => $user->id]);
+                return $next($request);
             } else {
-                // Token inválido, remover cookie e redirecionar ou retornar erro
+                \Log::warning('Invalid remember token');
                 return response()->json(['message' => 'Unauthorized'], 401);
             }
         }
 
         return $next($request);
     }
+
 }

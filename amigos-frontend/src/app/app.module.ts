@@ -7,9 +7,10 @@ import { AppRoutingModule } from './app-routing.module';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule, HttpClientXsrfModule } from '@angular/common/http';
 import { LoginService } from './services/login.service';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { AuthInterceptor } from './auth.interceptor';
 
 @NgModule({
   declarations: [
@@ -25,9 +26,14 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     MatIconModule,
     AppRoutingModule,
     MatSnackBarModule,
+    HttpClientXsrfModule.withOptions({
+      cookieName: 'XSRF-TOKEN', 
+      headerName: 'X-XSRF-TOKEN', 
+    }),
   ],
   providers: [
     LoginService,
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
   ]
 })
 export class AppModule {}
