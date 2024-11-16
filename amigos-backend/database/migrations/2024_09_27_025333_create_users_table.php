@@ -16,7 +16,7 @@ return new class extends Migration
         $table->string('name', 50);
         $table->string('phone', 50)->nullable();
         $table->string('email', 50)->unique();
-        $table->enum('type', ['admin', 'parent', 'professor']);
+        $table->enum('type', ['admin', 'parent', 'professor'])->default('professor');
         $table->tinyInteger('status')->default(false);
         $table->string('login', 50)->unique();
         $table->string('password', 255);

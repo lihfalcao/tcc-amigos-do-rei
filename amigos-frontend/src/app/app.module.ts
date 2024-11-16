@@ -11,6 +11,8 @@ import { HTTP_INTERCEPTORS, HttpClientModule, HttpClientXsrfModule } from '@angu
 import { LoginService } from './services/login.service';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { AuthInterceptor } from './auth.interceptor';
+import { ScheduleService } from './services/schedule.service';
+import { DebugInterceptor } from './interceptors/debug.interceptor';
 
 @NgModule({
   declarations: [
@@ -33,7 +35,12 @@ import { AuthInterceptor } from './auth.interceptor';
   ],
   providers: [
     LoginService,
-    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+    ScheduleService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: DebugInterceptor,
+      multi: true
+    }
   ]
 })
 export class AppModule {}
