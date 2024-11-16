@@ -11,6 +11,8 @@ class CreateThemesTable extends Migration
         Schema::create('themes', function (Blueprint $table) {
             $table->id();
             $table->string('name', 50);
+            $table->longText('content');
+            $table->text('resume');
             $table->timestamps();
             $table->softDeletes();
         });

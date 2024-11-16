@@ -4,8 +4,8 @@ import { CommonModule } from '@angular/common';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
-import { Router } from '@angular/router'; // Importar Router para navegação
-import { LoginService } from '../services/login.service'; // Importar o serviço de login
+import { Router } from '@angular/router';
+import { LoginService } from '../services/login.service';
 import { routerTransition } from '../router.animations';
 import { HttpClientModule } from '@angular/common/http';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -68,18 +68,18 @@ export class LoginComponent {
             duration: 3000,
             panelClass: ['success-snackbar'],
           });
-          localStorage.setItem('username', response.name);  // Armazena o nome
-          localStorage.setItem('auth_token', response.token); // Armazena o token de autenticação
-          this.router.navigate(['/home']); // Redireciona para a home
+          localStorage.setItem('username', response.name); 
+          localStorage.setItem('auth_token', response.token);
+          this.router.navigate(['/home']);
         },
         error => {
           if (error.error.message === "Invalid credentials") {
-            this.errorMessage = 'Dados de login inválidos, tente novamente!'; // Define a mensagem de erro
+            this.errorMessage = 'Dados de login inválidos, tente novamente!';
             this.snackBar.open(this.errorMessage, 'Fechar', {
               duration: 3000,
               panelClass: ['error-snackbar'],
             });
-            // Adicione erros aos campos
+           
             this.loginForm.controls['username'].setErrors({ invalid: true });
             this.loginForm.controls['password'].setErrors({ invalid: true });
           }
