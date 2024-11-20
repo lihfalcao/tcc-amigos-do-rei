@@ -25,10 +25,10 @@ export class HomeComponent {
   }
 
   loadEvents() {
-    this.scheduleService.getSchedulesForLoggedInUser().subscribe(
+    this.scheduleService.getFutureSchedulesForLoggedInUser().subscribe(
       events => {
-        if (events.length > 0) {
-          this.event = events[0];
+        if (events.schedules.length > 0) {
+          this.event = events.schedules;
           console.log(this.event);
         } else {
           this.openSnackBar('Nenhum evento encontrado.'); 

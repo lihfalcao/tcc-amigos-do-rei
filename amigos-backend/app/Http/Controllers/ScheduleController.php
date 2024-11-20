@@ -42,7 +42,7 @@ class ScheduleController extends Controller
         $startDate = now(); 
 
         Log::info('Usuário autenticado', ['user' => $user]);
-        return response()->json(['schedules' => $this->scheduleRepository->getPassedSchedulesForProfessor($user->id, $startDate)]);
+        return response()->json(['schedules' => $this->scheduleRepository->getFutureSchedulesForProfessor($user->id, $startDate)]);
     }
 
     
