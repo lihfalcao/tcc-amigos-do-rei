@@ -30,6 +30,19 @@ export class ScheduleService {
       )
     );
   }
+
+  getFutureSchedulesForLoggedInUser(): Observable<any> {
+    const token = localStorage.getItem('auth_token'); // Pegue o token do localStorage
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}` // Adicione o token no cabeçalho
+    });
+  
+    return this.initializeSanctum().pipe(
+      switchMap(() =>
+        this.http.get(`${this.apiUrl}/schedule/future`, { headers, withCredentials: true })
+      )
+    );
+  }
   
   
 

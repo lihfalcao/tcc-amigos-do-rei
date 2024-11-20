@@ -28,19 +28,21 @@ class ScheduleRepository
 
     public function getPassedSchedulesForProfessor($professorId, $endDate)
     {
-        return Schedule::where('professor_id', $professorId)
+        return Schedule::where('user_id', $professorId)
                         ->where('type', 'event')
                         ->where('date', '<', $endDate)
                         ->with(['professor', 'classe', 'theme']) 
                         ->get();
     }
 
-    public function getFutureSchedulesForProfessor($professorId, $endDate)
+    public function getFutureSchedulesForProfessor($professorId, $startDate)
     {
-        return Schedule::where('professor_id', $professorId)
+        return Schedule::select(['themes.name as theme', 'themes.id as themeId', 'date', 'resume', 'content', 'classes.name as class', 'shift'])
+                        ->join('classes', 'classes.id', 'class_id')
+                        ->join('themes', 'themes.id', 'theme_id')
+                        ->where('user_id', $professorId)
                         ->where('type', 'event')
-                        ->where('date', '<', $endDate)
-                        ->with(['professor', 'classe', 'theme']) 
+                        ->where('date', '>', $startDate)                        
                         ->get();
     }
 
