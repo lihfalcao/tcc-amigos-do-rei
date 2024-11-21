@@ -10,12 +10,13 @@ import { FormatPhonePipe } from '../format-phone.pipe';
 import { FormsModule } from '@angular/forms';
 import { ScheduleService } from '../services/schedule.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { IMaskModule } from 'angular-imask';
 
 
 @Component({
   selector: 'app-profile',
   standalone: true,
-  imports: [CommonModule, RouterModule, MatButtonModule, MatIconModule, FooterComponent, NavbarComponent, FormatPhonePipe, FormsModule],
+  imports: [CommonModule, RouterModule, MatButtonModule, MatIconModule, FooterComponent, NavbarComponent, FormatPhonePipe, FormsModule, IMaskModule],
   providers: [ScheduleService, LoginService],
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.scss']
