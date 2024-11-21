@@ -21,6 +21,12 @@ export class LoginService {
       }));
   }
 
+  initializeSanctum(): Observable<void> {
+    return this.http.get(`${this.webUrl}/sanctum/csrf-cookie`, { withCredentials: true }).pipe(
+      map(() => {})
+    );
+  }
+
   // Modifique o método de login para incluir o CSRF Token no cabeçalho
   login(credentials: { login: string; password: string; rememberMe: boolean }): Observable<any> {
     return this.getCsrfToken().pipe(
@@ -45,6 +51,19 @@ export class LoginService {
         });
         return this.http.post(`${this.apiUrl}/logout`, {}, { headers, withCredentials: true });
       })
+    );
+  }
+
+  getLoggedInUser(): Observable<any> {
+    const token = localStorage.getItem('auth_token'); // Pegue o token do localStorage
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}` // Adicione o token no cabeçalho
+    });
+  
+    return this.initializeSanctum().pipe(
+      switchMap(() =>
+        this.http.get(`${this.apiUrl}/user`, { headers, withCredentials: true })
+      )
     );
   }
   

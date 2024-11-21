@@ -9,18 +9,104 @@
             </div>
             <input type="file" id="file-upload" accept="image/*" (change)="onFileSelected($event)" style="display: none;" />
         </div>        
-        <div class="perfil-info">
-            <h3>Nome</h3>
-            <p>Professora Juniores</p>
-            <p>Email - Telefone</p>
+        <div class="perfil-info"  *ngIf="user">
+            <h3 style="margin-top: 0.5em;">{{this.user.name}}</h3>
+            <p style="margin-top: -0.7em;">
+                {{ 
+                  this.user.professor_has_classes.length > 0 
+                    ? (
+                        this.user.professor_has_classes[0].class.name === 'Louvor' || this.user.professor_has_classes[0].class.name === 'Teatro' 
+                        ? 'Membro do ' + this.user.professor_has_classes[0].class.name 
+                        : (this.user.gender === 'female' ? 'Professora ' : 'Professor ') + this.user.professor_has_classes[0].class.name
+                      ) 
+                    : 'Sem classe associada'
+                }}
+              </p>
+            <p>{{this.user.email}} - {{this.user.phone | formatPhone}}</p>
         </div>
     </div>
 
     <div class="perfil-direito">
         <div class="card card-azul">
             <div class="card-interno">
-                <h3>Amigos do Rei</h3>
-                <p>Ministério Infantil da IPB Bonsucesso</p>
+                <form #editForm="ngForm" (ngSubmit)="onSubmit()">
+                    <div class="form-row">
+                      <div class="form-group">
+                        <label for="name">Nome</label>
+                        <input
+                          type="text"
+                          id="name"
+                          name="name"
+                          class="form-control"
+                          [(ngModel)]="user.name"
+                          required
+                        />
+                      </div>
+                      <div class="form-group">
+                        <label for="email">Email</label>
+                        <input
+                          type="email"
+                          id="email"
+                          name="email"
+                          class="form-control"
+                          [(ngModel)]="user.email"
+                          required
+                        />
+                      </div>
+                    </div>
+                    <div class="form-row">
+                      <div class="form-group">
+                        <label for="phone">Telefone</label>
+                        <input
+                          type="phone"
+                          id="phone"
+                          name="phone"
+                          class="form-control"
+                          [(ngModel)]="user.phone"
+                          required
+                        />
+                      </div>
+                        <div class="form-group">
+                            <label for="login">Login</label>
+                            <input
+                            type="text"
+                            id="login"
+                            name="login"
+                            class="form-control"
+                            [(ngModel)]="user.login"
+                            required
+                            />
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="password">Senha</label>
+                            <input
+                              type="password"
+                              id="password"
+                              name="password"
+                              class="form-control"
+                              [(ngModel)]="user.password"
+                              required
+                            />
+                          </div>
+                      <div class="form-group">
+                        <label for="confirmPassword">Confirmar Senha</label>
+                        <input
+                          type="password"
+                          id="confirmPassword"
+                          name="confirmPassword"
+                          class="form-control"
+                          [(ngModel)]="confirmPassword"
+                          required
+                        />
+                      </div>
+                    </div>
+                    <div class="form-buttons">
+                      <button type="submit" class="btn btn-primary">Salvar</button>
+                      <button type="button" class="btn btn-secondary" (click)="onCancel()">Cancelar</button>
+                    </div>
+                  </form>                  
             </div>
         </div>
         <div class="card card-roxo">
@@ -30,11 +116,6 @@
             </div>
         </div>
     </div>
-</div>
-
-<div class="perfil-botoes">
-    <button mat-raised-button class="mat-button-primario" (click)="editar()">Editar</button>
-    <button mat-raised-button class="mat-button-voltar" (click)="voltar()">Voltar</button>
 </div>
 
 <app-footer></app-footer>

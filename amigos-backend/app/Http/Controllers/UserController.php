@@ -111,4 +111,15 @@ class UserController extends Controller
         return response()->json(['message' => 'Logged out successfully']);
     }
 
+    public function loggedUser()
+    {
+        $user = Auth::guard('sanctum')->user();
+
+        if (!$user) {
+            return response()->json(['message' => 'Usuário não autenticado'], 401);
+        }
+         
+        return response()->json(['user' => $this->userRepository->loggedUser($user)]);
+    }
+
 }

@@ -15,6 +15,6 @@ class Professor extends Model
     // Relacionamento com a tabela Schedule
     public function schedules()
     {
-        return $this->hasMany(Schedule::class, 'professor_id');
+        return $this->hasMany(Schedule::class, 'user_id');
     }
 }

@@ -11,8 +11,6 @@ class CreateProfessorHasClassesTable extends Migration
         Schema::create('professor_has_classes', function (Blueprint $table) {
             $table->unsignedBigInteger('user_id'); // Professor
             $table->unsignedBigInteger('class_id');
-            $table->timestamps();
-            $table->softDeletes();
 
             // Foreign keys
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');

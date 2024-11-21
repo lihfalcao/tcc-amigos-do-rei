@@ -5,18 +5,38 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { FooterComponent } from '../footer/footer.component';
 import { NavbarComponent } from '../navbar/navbar.component';
+import { LoginService } from '../services/login.service';
+import { FormatPhonePipe } from '../format-phone.pipe';
+import { FormsModule } from '@angular/forms';
+
 
 @Component({
   selector: 'app-profile',
   standalone: true,
-  imports: [CommonModule, RouterModule, MatButtonModule, MatIconModule, FooterComponent, NavbarComponent],
+  imports: [CommonModule, RouterModule, MatButtonModule, MatIconModule, FooterComponent, NavbarComponent, FormatPhonePipe, FormsModule],
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.scss']
 })
 export class ProfileComponent {
   userAvatar = '../../assets/images/avatar.png';
+  user: any = [];
+  confirmPassword: string = '';
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private loginService: LoginService) {}
+
+  ngOnInit() {
+    this.getUser();
+    
+  }
+
+  getUser() {
+    this.loginService.getLoggedInUser().subscribe(
+      user => {
+        this.user = user.user;
+      });
+
+  }
+    
 
   onUploadClick(): void {
     const fileInput = document.getElementById('file-upload') as HTMLInputElement;
@@ -33,6 +53,22 @@ export class ProfileComponent {
       };
       reader.readAsDataURL(file);
     }
+  }
+
+  onSubmit() {
+    if (this.user.password !== this.confirmPassword) {
+      alert('As senhas não coincidem!');
+      return;
+    }
+    // Aqui você pode enviar os dados para o backend ou salvar as alterações
+    console.log('Dados salvos:', this.user);
+  }
+
+  onCancel() {
+    // Reverter alterações ou redefinir o formulário
+    this.user.password = '';
+    this.confirmPassword = '';
+    console.log('Edição cancelada');
   }
 
   editar() {

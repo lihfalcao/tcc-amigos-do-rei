@@ -9,19 +9,19 @@ class Schedule extends Model
     protected $table = 'schedule'; 
 
     protected $fillable = [
-        'date', 'professor_id', 'class_id', 'theme_id', 'type'
+        'date', 'user_id', 'class_id', 'theme_id', 'type'
     ];
 
     
     public function professor()
     {
-        return $this->belongsTo(Professor::class, 'professor_id');
+        return $this->belongsTo(Professor::class, 'user_id');
     }
 
 
-    public function classe()
+    public function class()
     {
-        return $this->belongsTo(Classe::class, 'class_id');
+        return $this->belongsTo(Classes::class, 'class_id');
     }
 
 

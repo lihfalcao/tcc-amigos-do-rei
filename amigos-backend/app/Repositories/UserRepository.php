@@ -28,4 +28,10 @@ class UserRepository
     {
         return User::where('login', $login)->where('status', true)->first();
     }
+
+    public function loggedUser(User $user){
+        return User::where('id', $user->id)
+                    ->with(['professorHasClasses.class'])
+                    ->first();
+    }
 }

@@ -11,8 +11,6 @@ class CreateClassHasMultimediasTable extends Migration
         Schema::create('class_has_multimedias', function (Blueprint $table) {
             $table->unsignedBigInteger('class_id');
             $table->unsignedBigInteger('multimedia_id');
-            $table->timestamps();
-            $table->softDeletes();
 
             // Foreign keys
             $table->foreign('class_id')->references('id')->on('classes')->onDelete('cascade');
