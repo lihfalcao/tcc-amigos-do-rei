@@ -28,7 +28,7 @@
 
     <div class="perfil-direito">
         <div class="card card-azul">
-            <div class="card-interno">
+            <div class="card-interno" style="display:flex">
                 <form #editForm="ngForm" (ngSubmit)="onSubmit()">
                     <div class="form-row">
                       <div class="form-group">
@@ -110,9 +110,17 @@
             </div>
         </div>
         <div class="card card-roxo">
-            <div class="card-interno">
-                <h3>Amigos do Rei</h3>
-                <p>Ministério Infantil da IPB Bonsucesso</p>
+            <div class="card-interno" style="padding: 2em">
+                <h1 style="color: #7e57c2; font-weight: bolder;">Aulas</h1>
+                <hr>
+                <div *ngFor="let event of events">
+                    <p style="margin-top: 2em;">( <b>{{event.date | date: 'dd/MM/yyyy' }}</b> )</p>
+                    <p style="margin-top: 1em; font-size: small;">{{event.theme | uppercase}}</p>
+                    <button style="float:right;" 
+                    class="btn btn-info text-white" 
+                    [routerLink]="['/aula', event.themeId]">Ver mais</button>
+                    <hr style=" width: 10em; margin: auto; margin-top: 5em;">
+                </div>
             </div>
         </div>
     </div>

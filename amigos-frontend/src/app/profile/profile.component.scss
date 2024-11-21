@@ -113,13 +113,14 @@
 .card-azul {
     background-color: #41C4FC;
     color: white;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
     width: 40em; /* Maior largura para o cartão azul */
     height: 35em; /* Maior altura para o cartão azul */
 }
 
 .card-roxo {
     background-color: #D1C4E9;
-    color: white;
+    color: rgb(138, 132, 132);
     width: 20em; /* Largura menor para o cartão roxo */
     height: 35em; /* Altura menor para o cartão roxo */
 }
@@ -130,7 +131,6 @@
     height: 90%;
     background-color: rgba(255, 255, 255, 0.7);
     border-radius: 10px;
-    display: flex;
     justify-content: center;
     align-items: center;
     text-align: center;
@@ -196,12 +196,20 @@ button.mat-button-voltar:hover {
   }
   
   .form-control {
-    width: 100%;
-    padding: 0.3em;
-    font-size: 1rem;
-    border: 1px solid #ccc;
+    background-color: #f4f9fc; /* Azul muito claro para maior contraste */
+    border: 1px solid #90caf9; /* Borda azul */
+    color: #333; /* Texto mais escuro */
+    padding: 0.5em;
     border-radius: 5px;
-    box-sizing: border-box;
+    font-size: 1rem;
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1); /* Sombra interna */
+  }
+
+  .form-control:focus {
+    background-color: #ffffff; /* Branco puro ao focar */
+    border-color: #42a5f5; /* Azul mais forte ao focar */
+    outline: none;
+    box-shadow: 0 0 4px rgba(66, 165, 245, 0.6); /* Sombra ao focar */
   }
   
   .form-buttons {
@@ -209,14 +217,6 @@ button.mat-button-voltar:hover {
     justify-content:center;
     gap: 1em;
     margin-top: 2em;
-  }
-  
-  .btn {
-    padding: 0.5em 1.5em;
-    font-size: 1rem;
-    width: auto;
-    border-radius: 5px;
-    cursor: pointer;
   }
   
   .btn-primary {
@@ -239,4 +239,3 @@ button.mat-button-voltar:hover {
     background-color: #5a6268;
   }
   
-

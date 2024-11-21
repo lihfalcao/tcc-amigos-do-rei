@@ -34,4 +34,8 @@ class UserRepository
                     ->with(['professorHasClasses.class'])
                     ->first();
     }
+
+    public function updateLoggedUser(User $user, $data){
+        return $user->update($data);
+    }
 }

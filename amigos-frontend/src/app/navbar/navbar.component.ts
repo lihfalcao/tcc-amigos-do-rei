@@ -21,6 +21,7 @@ export class NavbarComponent {
     logged: boolean = false;
     data:any;
     userAvatar:any;
+    user:any;
 
     constructor(private loginService: LoginService, private router: Router) { }
 
@@ -29,6 +30,15 @@ export class NavbarComponent {
       this.calendar = '../../assets/images/calendar.png';
       this.message = '../../assets/images/message.png';
       this.name = localStorage.getItem('username');
+      this.getUser();
+    }
+  
+    getUser() {
+      this.loginService.getLoggedInUser().subscribe(
+        user => {
+          this.user = user.user;
+          this.userAvatar = this.user.avatar ?  'http://localhost:8081/storage/avatars/' + this.user.avatar : '../../assets/images/avatar.png';
+        });
     }
   
   

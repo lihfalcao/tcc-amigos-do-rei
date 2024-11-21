@@ -66,6 +66,32 @@ export class LoginService {
       )
     );
   }
+
+  updateLoggedInUser(data:[]): Observable<any> {
+    const token = localStorage.getItem('auth_token'); // Pegue o token do localStorage
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}` // Adicione o token no cabeçalho
+    });
+  
+    return this.initializeSanctum().pipe(
+      switchMap(() =>
+        this.http.put(`${this.apiUrl}/user`, data, { headers, withCredentials: true })
+      )
+    );
+  }
+
+  updateAvatar(data: any): Observable<any> {
+    const token = localStorage.getItem('auth_token'); // Pegue o token do localStorage
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}` // Adicione o token no cabeçalho
+    });
+  
+    return this.initializeSanctum().pipe(
+      switchMap(() =>
+        this.http.post(`${this.apiUrl}/user/avatar`, data, { headers, withCredentials: true })
+      )
+    );
+  }
   
   
 }

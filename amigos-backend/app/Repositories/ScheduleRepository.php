@@ -14,7 +14,7 @@ class ScheduleRepository
                         ->join('themes', 'themes.id', 'theme_id')
                         ->where('user_id', $professorId)
                         ->where('type', 'event')
-
+                        ->orderBy('date', 'desc')
                         ->get();
     }
 

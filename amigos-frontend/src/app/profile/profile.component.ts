@@ -8,33 +8,47 @@ import { NavbarComponent } from '../navbar/navbar.component';
 import { LoginService } from '../services/login.service';
 import { FormatPhonePipe } from '../format-phone.pipe';
 import { FormsModule } from '@angular/forms';
+import { ScheduleService } from '../services/schedule.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 
 @Component({
   selector: 'app-profile',
   standalone: true,
   imports: [CommonModule, RouterModule, MatButtonModule, MatIconModule, FooterComponent, NavbarComponent, FormatPhonePipe, FormsModule],
+  providers: [ScheduleService, LoginService],
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.scss']
 })
 export class ProfileComponent {
-  userAvatar = '../../assets/images/avatar.png';
+  userAvatar = '';
   user: any = [];
   confirmPassword: string = '';
+  events: any = [];
 
-  constructor(private router: Router, private loginService: LoginService) {}
+  constructor(private router: Router, private loginService: LoginService, private scheduleService: ScheduleService, private snackBar: MatSnackBar) {}
 
   ngOnInit() {
     this.getUser();
-    
+    this.getEvents();
   }
 
   getUser() {
     this.loginService.getLoggedInUser().subscribe(
       user => {
         this.user = user.user;
+        this.userAvatar = this.user.avatar ?  'http://localhost:8081/storage/avatars/' + this.user.avatar : '../../assets/images/avatar.png';
       });
+  }
 
+  getEvents(){
+    this.scheduleService.getSchedulesForLoggedInUser().subscribe(
+      events => {
+        if (events.schedules.length > 0) {
+          this.events = events.schedules;
+        } 
+      }
+    );
   }
     
 
@@ -52,6 +66,16 @@ export class ProfileComponent {
         this.userAvatar = e.target.result; // Atualiza a imagem do avatar com a nova foto
       };
       reader.readAsDataURL(file);
+      const formData = new FormData();
+      formData.append('avatar', file);
+      this.loginService.updateAvatar(formData).subscribe(
+        response => {
+          this.openSnackBar('Avatar atualizado com sucesso!'); 
+        },
+        error => {
+          this.openSnackBar('Erro ao atualizar o avatar.'); 
+        }
+      );
     }
   }
 
@@ -60,8 +84,16 @@ export class ProfileComponent {
       alert('As senhas não coincidem!');
       return;
     }
-    // Aqui você pode enviar os dados para o backend ou salvar as alterações
-    console.log('Dados salvos:', this.user);
+
+    this.loginService.updateLoggedInUser(this.user).subscribe(
+      response => {
+        this.openSnackBar('Dados atualizados com sucesso!'); 
+      },
+      error => {
+        this.openSnackBar('Erro ao atualizar os dados.'); 
+      }
+    );
+    
   }
 
   onCancel() {
@@ -71,12 +103,10 @@ export class ProfileComponent {
     console.log('Edição cancelada');
   }
 
-  editar() {
-    console.log("Editar perfil");
-  
+  openSnackBar(message: string) {
+    this.snackBar.open(message, 'Fechar', {
+      duration: 3000, 
+    });
   }
 
-  voltar() {
-    this.router.navigate(['/home']);
-  }
 }

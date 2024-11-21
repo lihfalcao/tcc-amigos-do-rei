@@ -44,7 +44,6 @@ export class ScheduleService {
     );
   }
   
-  
 
   // Obter eventos passados por professor
   getPassedSchedulesByProfessor(id: number): Observable<any[]> {

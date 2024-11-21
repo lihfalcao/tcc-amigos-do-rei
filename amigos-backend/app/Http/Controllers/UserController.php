@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cookie;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 
@@ -30,6 +31,7 @@ class UserController extends Controller
             'password' => 'required|string|min:8',
             'type' => 'required|in:admin,parent,professor',
             'status' => 'boolean',
+            'gender' => 'nullable|string|max:50'
         ]);
 
         $data['password'] = Hash::make($data['password']);
@@ -120,6 +122,62 @@ class UserController extends Controller
         }
          
         return response()->json(['user' => $this->userRepository->loggedUser($user)]);
+    }
+
+    public function updateLoggedUser(Request $request)
+    {
+        $user = Auth::guard('sanctum')->user();
+
+        if (!$user) {
+            return response()->json(['message' => 'Usuário não autenticado'], 401);
+        }
+
+        $data = $request->validate([
+            'name' => 'string|max:50',
+            'phone' => 'nullable|string|max:50',
+            'email' => 'email|max:50|unique:users,email,' . $user->id,
+            'login' => 'string|max:50|unique:users,login,' . $user->id,
+            'password' => 'nullable|string|min:8',
+        ]);
+
+        if (!empty($data['password'])) {
+            $data['password'] = Hash::make($data['password']);
+        }
+
+        $this->userRepository->updateLoggedUser($user, $data);
+
+        return response()->json($user, 200);
+    }
+
+    public function uploadAvatar(Request $request)
+    {
+        $request->validate([
+            'avatar' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048', // Validações para o arquivo
+        ]);
+
+        $user = Auth::guard('sanctum')->user();
+
+        if (!$user) {
+            return response()->json(['message' => 'Usuário não autenticado'], 401);
+        }
+
+        // Verifica se o usuário já possui um avatar e o remove
+        if ($user->avatar) {
+            Storage::disk('public')->delete('images/avatar/' . $user->avatar);
+        }
+
+        // Salva o novo avatar
+        $avatarName = $user->name . '_' . time() . '.' . $request->avatar->extension();
+        $request->avatar->storeAs('avatars', $avatarName, 'public');
+
+        // Atualiza o campo `avatar` na tabela `users`
+        $user->avatar = $avatarName;
+        $user->save();
+
+        return response()->json([
+            'message' => 'Avatar atualizado com sucesso!',
+            'avatar_url' => asset('storage/avatars/' . $avatarName),
+        ]);
     }
 
 }
