@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\ScheduleController;
+use App\Http\Controllers\ThemeController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
@@ -25,6 +26,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::put('/users/{user}', [UserController::class, 'update']);
     Route::delete('/users/{user}', [UserController::class, 'destroy']);
     Route::post('/logout', [UserController::class, 'logout']);
+    Route::get('/theme/{theme}', [ThemeController::class, 'getTheme']);
     Route::get('/schedule', [ScheduleController::class, 'getSchedulesForLoggedInUser']);
     Route::get('/schedule/future', [ScheduleController::class, 'getFutureSchedulesForProfessor']);
     Route::get('/schedule/passed/{professorId}', [ScheduleController::class, 'getPassedSchedules']);

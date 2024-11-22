@@ -57,7 +57,16 @@ export class ScheduleService {
 
   // Outras requisições simples
   getTheme(id: any): Observable<any> {
-    return this.http.get<any[]>(`${this.apiUrl}/themes/${id}`);
+    const token = localStorage.getItem('auth_token'); // Pegue o token do localStorage
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}` // Adicione o token no cabeçalho
+    });
+  
+    return this.initializeSanctum().pipe(
+      switchMap(() =>
+        this.http.get(`${this.apiUrl}/theme/${id}`, { headers, withCredentials: true })
+      )
+    );
   }
 
   getClasses(): Observable<any[]> {

@@ -9,7 +9,7 @@ class ScheduleRepository
 {
     public function getSchedulesForProfessor($professorId)
     {
-        return Schedule::select(['themes.name as theme', 'date', 'resume', 'content', 'classes.name as class', 'shift'])
+        return Schedule::select(['themes.name as theme', 'date', 'resume', 'content', 'classes.name as class', 'shift', 'themes.id as themeId'])
                         ->join('classes', 'classes.id', 'class_id')
                         ->join('themes', 'themes.id', 'theme_id')
                         ->where('user_id', $professorId)

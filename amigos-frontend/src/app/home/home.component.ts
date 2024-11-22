@@ -29,7 +29,6 @@ export class HomeComponent {
       events => {
         if (events.schedules.length > 0) {
           this.event = events.schedules;
-          console.log(this.event);
         } else {
           this.openSnackBar('Nenhum evento encontrado.'); 
         }

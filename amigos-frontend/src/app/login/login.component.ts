@@ -34,6 +34,7 @@ export class LoginComponent {
   passwordInputType = 'password';
   passwordIcon = 'visibility';
   errorMessage = "";
+  isButtonDisabled: boolean = true;
 
   loginForm: FormGroup;
 
@@ -47,6 +48,10 @@ export class LoginComponent {
       password: ['', Validators.required],
       rememberMe: [false]
     });
+
+    this.loginForm.get('password')?.valueChanges.subscribe(() => {
+      this.isButtonDisabled = false; 
+    });
   }
 
   toggleVisibility() {
@@ -55,38 +60,35 @@ export class LoginComponent {
   }
 
   submit() {
-    if (this.loginForm.valid) {
-      const credentials = {
-        login: this.loginForm.value.username,
-        password: this.loginForm.value.password,
-        rememberMe: this.loginForm.value.rememberMe
-      };
-    
-      this.loginService.login(credentials).subscribe(
-        response => {
-          this.snackBar.open('Bem-vindo, ' + response.name, 'Fechar', {
+    const credentials = {
+      login: this.loginForm.value.username,
+      password: this.loginForm.value.password,
+      rememberMe: this.loginForm.value.rememberMe
+    };
+  
+    this.loginService.login(credentials).subscribe(
+      response => {
+        this.snackBar.open('Bem-vindo, ' + response.name, 'Fechar', {
+          duration: 3000,
+          panelClass: ['success-snackbar'],
+        });
+        localStorage.setItem('username', response.name); 
+        localStorage.setItem('auth_token', response.token);
+        this.router.navigate(['/home']);
+      },
+      error => {
+        if (error.error.message === "Invalid credentials") {
+          this.errorMessage = 'Dados de login inválidos, tente novamente!';
+          this.snackBar.open(this.errorMessage, 'Fechar', {
             duration: 3000,
-            panelClass: ['success-snackbar'],
+            panelClass: ['error-snackbar'],
           });
-          localStorage.setItem('username', response.name); 
-          localStorage.setItem('auth_token', response.token);
-          this.router.navigate(['/home']);
-        },
-        error => {
-          if (error.error.message === "Invalid credentials") {
-            this.errorMessage = 'Dados de login inválidos, tente novamente!';
-            this.snackBar.open(this.errorMessage, 'Fechar', {
-              duration: 3000,
-              panelClass: ['error-snackbar'],
-            });
-           
-            this.loginForm.controls['username'].setErrors({ invalid: true });
-            this.loginForm.controls['password'].setErrors({ invalid: true });
-          }
+          
+          this.loginForm.controls['username'].setErrors({ invalid: true });
+          this.loginForm.controls['password'].setErrors({ invalid: true });
         }
-      );
-    } else {
-      console.warn('Form is invalid');
-    }
+      }
+    );
+    
   }
 }

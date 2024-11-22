@@ -1,6 +1,6 @@
 <app-navbar [actualPage]="'home'"></app-navbar>
 <div class="home">
-    <div class="container">
+    <div class="container" *ngIf="event">
         <div>
             <div class="menu-container" (click)="abrirMenu()"></div>
         </div>
@@ -8,29 +8,29 @@
             <div class="retangulo retangulo1">
                 <p style="font-size: 30px; font-weight: bold; margin-top: 10px; 
                 text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);">
-                    {{ event[0].date | date: 'dd/MM/yyyy' }}
+                    {{ event[0]?.date | date: 'dd/MM/yyyy' }}
                 </p>
             </div>
             <div class="retangulo retangulo2">
                 <p style="font-size: 30px; font-weight: bold; margin-top: 10px; 
                 text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);">
-                    {{ event[0].class }}
+                    {{ event[0]?.class }}
                 </p>
             </div>
             <div class="retangulo retangulo3">
                 <p style="font-size: 30px; font-weight: bold; margin-top: 10px; 
                 text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);">
-                    {{ event[0].shift == 'morning' ? "Manhã" : "Noite" }}
+                    {{ event[0]?.shift == 'morning' ? "Manhã" : "Noite" }}
                 </p>
             </div>
         </div>
         <div>
             <div class="info">
                 <div class="retangulo-interno">
-                    <div class="texto-interno" [innerHTML]="event[0].resume"></div>
+                    <div class="texto-interno" [innerHTML]="event[0]?.resume"></div>
                     <button style="float:right; margin-top: -37px;" 
                     class="btn btn-info text-white" 
-                    [routerLink]="['/aula', event[0].themeId]">Ver mais</button>
+                    [routerLink]="['/aula', event[0]?.themeId]">Ver mais</button>
                 </div>
             </div>
         </div>
