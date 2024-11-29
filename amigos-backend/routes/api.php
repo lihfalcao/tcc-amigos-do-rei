@@ -28,9 +28,16 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::post('/logout', [UserController::class, 'logout']);
     Route::get('/theme/{theme}', [ThemeController::class, 'getTheme']);
     Route::get('/schedule', [ScheduleController::class, 'getSchedulesForLoggedInUser']);
+    Route::get('/schedules', [ScheduleController::class, 'schedules']);
     Route::get('/schedule/future', [ScheduleController::class, 'getFutureSchedulesForProfessor']);
     Route::get('/schedule/passed/{professorId}', [ScheduleController::class, 'getPassedSchedules']);
     Route::post('/schedule', [ScheduleController::class, 'saveSchedule']);
+    Route::get('/classes', [ScheduleController::class, 'getClasses']);
+    Route::put('/class/{theme}', [ScheduleController::class, 'updateSchedule']);
+    Route::delete('/class/{theme}', [ScheduleController::class, 'deleteSchedule']);
+    Route::post('/class', [ThemeController::class, 'saveTheme']);
+    Route::get('/professors', [ScheduleController::class, 'getProfessors']);
+    Route::get('/themes', [ThemeController::class, 'getThemes']);
 });
 
 // Rotas públicas

@@ -1,0 +1,87 @@
+<app-navbar [actualPage]="'calendar'"></app-navbar>
+<div class="container">
+  <div class="info">
+    <div class="retangulo-interno">
+      <h1 style="text-align: center; margin-bottom:1em;">Editar Classes</h1>
+      <form [formGroup]="classForm" style="display: flex; flex-direction: column; align-items: center;">
+        <div style="display: flex; gap: 20px; justify-content: center; width: 100%;">
+          <mat-form-field class="col-sm-4">
+            <mat-label>Data</mat-label>
+            <input matInput formControlName="date" [imask]="{ mask: '00/00/0000' }" required />
+          </mat-form-field>
+          <mat-form-field class="col-sm-4">
+            <mat-label>Tema</mat-label>
+            <mat-select formControlName="theme">
+              <mat-option *ngFor="let theme of themes" [value]="theme.id">{{ theme.name }}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <button
+          mat-raised-button
+          color="primary"
+          type="button"
+          (click)="addProfessor()"
+          style="margin-top: 20px; margin-bottom: 40px;"
+        >
+          Adicionar Professor
+        </button>
+        <div
+          formArrayName="professors"
+          style="width: 100%; display: flex; flex-direction: column; align-items: center;"
+        >
+          <div
+            *ngFor="let professorGroup of professors.controls; let i = index"
+            [formGroupName]="i"
+            style="display: flex; gap: 20px; align-items: center; justify-content: center; width: 80%;"
+          >
+            <mat-form-field class="col-sm-4">
+              <mat-label>Turma</mat-label>
+              <mat-select formControlName="class">
+                <mat-option *ngFor="let class of classes" [value]="class.id">{{ class.name }}</mat-option>
+              </mat-select>
+            </mat-form-field>
+            <mat-form-field class="col-sm-4">
+              <mat-label>Professor</mat-label>
+              <mat-select formControlName="professor">
+                <mat-option *ngFor="let professor of professorsList" [value]="professor.id">
+                  {{ professor.name }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            <button
+              mat-icon-button
+              color="warn"
+              (click)="removeProfessor(i)"
+              type="button"
+              style="margin-top: -10px;"
+            >
+              <mat-icon>delete</mat-icon>
+            </button>
+          </div>
+        </div>
+        <div style="margin-top: 20px; display: flex; gap: 20px; justify-content: center;">
+          <button
+            mat-raised-button
+            color="warning"
+            type="button"
+            [routerLink]="['/calendario']"
+            style="background-color: #fbc02d; color: white;"
+          >
+            Voltar
+          </button>
+          <button
+            mat-raised-button
+            color="success"
+            type="submit"
+            (click)="submit(classForm.value)"
+            [disabled]="!classForm.valid"
+            style="background-color: #4caf50; color: white;"
+            [ngStyle]="{'background-color': classForm.valid ? '#4caf50' : '#a5d6a7'}"
+            >
+            Atualizar
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

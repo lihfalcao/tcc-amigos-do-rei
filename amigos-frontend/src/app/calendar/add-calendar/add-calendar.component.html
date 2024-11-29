@@ -6,7 +6,7 @@
             <form [formGroup]="calendarForm" #formDir="ngForm">
                 <mat-form-field class="col-sm-3">
                     <mat-label>Data</mat-label>
-                    <input matInput formControlName="date" class="form-control custom-input" required />
+                    <input matInput formControlName="date" class="form-control custom-input" [imask]="{ mask: '00/00/0000' }" required />
                 </mat-form-field>
                 <mat-form-field class="col-sm-4" style="margin-left: 10px;">
                     <mat-label>Turma</mat-label>
@@ -15,7 +15,7 @@
                     </mat-select>
                   </mat-form-field>
                   <mat-form-field class="col-sm-4" style="margin-left: 10px;">
-                    <mat-label>Professora</mat-label>
+                    <mat-label>Professor</mat-label>
                     <mat-select formControlName="professor">
                         <mat-option *ngFor="let professor of professors" [value]="professor.id">{{professor.name}}</mat-option>
                     </mat-select>
@@ -24,7 +24,7 @@
                     <mat-label>Tema</mat-label>
                     <mat-select formControlName="theme">
                         <mat-option [value]="'novo'">Adicionar Novo Tema</mat-option>
-                        <mat-option *ngFor="let theme of themes" [value]="theme.id">{{theme.themeName}}</mat-option>
+                        <mat-option *ngFor="let theme of themes" [value]="theme.id">{{theme.name}}</mat-option>
                     </mat-select>
                   </mat-form-field>
                   <div *ngIf="showThemes">

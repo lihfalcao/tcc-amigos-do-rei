@@ -8,13 +8,45 @@
       <div class="retangulo-interno">
         <div [innerHTML]="theme.content"></div>
       </div>
-      <button
-        style="float:right; margin-top: 28em;"
-        class="btn btn-warning text-white"
-        (click)="goBack()"
-      >
-        Voltar
-      </button>
+      <div>
+        <button
+          style="float:right; margin-top: 28em;" 
+          class="btn btn-danger text-white"
+          (click)="delete(theme.id)"
+        >
+          Deletar
+        </button>
+        <button
+          style="float:right; margin-top: 28em; margin-right: 1em" 
+          class="btn btn-primary text-white"
+          [routerLink]="['/classe/editar', theme.id]"
+        >
+          Editar
+        </button>
+        <button
+          style="float:right; margin-top: 28em; margin-right: 1em"
+          class="btn btn-warning text-white"
+          (click)="goBack()"
+        >
+          Voltar
+        </button>
+        <button
+          style="float:right; margin-top: 28em; margin-right: 1em" 
+          class="btn btn-info text-white"
+          (click)="medias(theme.id)"
+        >
+          Mídias
+        </button>
+        
+      </div>
+    </div>
+    <div class="retangulo-professoras">
+      <div class="retangulo-interno">
+        <h1>Professores</h1>
+        <div *ngFor="let professor of theme.professors" class="professor-item">
+          <p>{{ professor.name + ' - ' + professor.className }}</p>
+        </div>
+      </div>
     </div>
   </div>
 </div>

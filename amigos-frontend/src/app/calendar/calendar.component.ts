@@ -4,7 +4,7 @@ import { CalendarOptions } from '@fullcalendar/core';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import ptBrLocale from '@fullcalendar/core/locales/pt-br';
 import { FullCalendarModule } from '@fullcalendar/angular';
-import { RouterModule } from '@angular/router';
+import { RouterModule, Router } from '@angular/router';
 import { NavbarComponent } from '../navbar/navbar.component';
 import { FooterComponent } from '../footer/footer.component';
 import { ScheduleService } from '../services/schedule.service';
@@ -29,22 +29,34 @@ export class CalendarComponent {
     initialView: 'dayGridMonth',
     locale: ptBrLocale,
     events: [],
+    eventClick: this.handleDateClick.bind(this), 
   };
 
-  constructor(private scheduleService: ScheduleService) {}
+  colors = ['#41C4FC', '#FE6BAB', '#6ace9e', '#F9C00D', '#8C4EDA'];
+
+  constructor(private scheduleService: ScheduleService, private router: Router) {}
 
   ngOnInit() {
     this.loadEvents();
   }
 
   loadEvents() {
-    // this.scheduleService.getEventsWithProfessors().subscribe((eventsWithProfessors) => {
-    //   this.calendarOptions.events = eventsWithProfessors.map((event) => ({
-    //     id: event.id,
-    //     title: `${event.className} - ${event.professorName}`,
-    //     date: event.date,
-    //     color: event.classColor,
-    //   }));
-    // });
+    this.scheduleService.getSchedules().subscribe((response: any) => {
+      this.calendarOptions.events = response.schedules.map((event: any) => ({
+        id: event.theme_id,
+        title: `${event.class.name} - ${event.professor.name}`,
+        date: event.date,
+        color: this.colors[event.class_id],
+      }));
+    });
+  }
+
+  handleDateClick(arg: any) {
+    const eventId = arg.event.id;
+    if (eventId) {
+      this.router.navigate([`/aula/${eventId}`]);
+    } else {
+      alert('Nenhum evento associado a esta data!');
+    }
   }
 }

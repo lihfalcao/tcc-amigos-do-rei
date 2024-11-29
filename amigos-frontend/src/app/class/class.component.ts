@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
@@ -7,6 +7,7 @@ import { FooterComponent } from '../footer/footer.component';
 import { NavbarComponent } from '../navbar/navbar.component';
 import { MatButtonModule } from '@angular/material/button';
 import { ScheduleService } from '../services/schedule.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-class',
@@ -29,7 +30,9 @@ export class ClassComponent implements OnInit {
   constructor(
     private scheduleService: ScheduleService,
     private route: ActivatedRoute,
-    private location: Location
+    private location: Location,
+    private router: Router,
+    private snackBar: MatSnackBar,
   ) {}
 
   ngOnInit() {
@@ -49,5 +52,16 @@ export class ClassComponent implements OnInit {
 
   goBack(): void {
     this.location.back();
+  }
+
+  medias(id: any): void {
+    this.router.navigate(['/midias/', id]);
+  }
+
+  delete(id: any): void {
+    this.scheduleService.deleteSchedule(id).subscribe((response: any) => {
+      this.snackBar.open('Evento deletado com sucesso!', 'Fechar', { duration: 3000 });
+      this.location.back();
+    });
   }
 }
