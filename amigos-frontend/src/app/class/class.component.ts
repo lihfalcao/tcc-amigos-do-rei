@@ -8,6 +8,7 @@ import { NavbarComponent } from '../navbar/navbar.component';
 import { MatButtonModule } from '@angular/material/button';
 import { ScheduleService } from '../services/schedule.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { FloatingMenuComponent } from '../floating-menu/floating-menu.component';
 
 @Component({
   selector: 'app-class',
@@ -20,6 +21,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
     FooterComponent,
     NavbarComponent,
     MatButtonModule,
+    FloatingMenuComponent
   ],
   providers: [ScheduleService],
 })
