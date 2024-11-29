@@ -67,9 +67,9 @@ class ThemeController extends Controller
             'updated_at' => date('Y-m-d H:i:s'),
         ];
 
-        Theme::create($data);
+        $theme = Theme::create($data);
 
-        return response()->json(['success' => true]);
+        return response()->json(['id' => $theme->id]);
     }
 
 }

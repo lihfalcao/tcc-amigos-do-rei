@@ -11,6 +11,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { ScheduleService } from '../../services/schedule.service';
 import { NavbarComponent } from '../../navbar/navbar.component';
 import { MatIconModule } from '@angular/material/icon';
+import { IMaskModule } from 'angular-imask';
+
 
 @Component({
   selector: 'app-edit-class',
@@ -26,7 +28,8 @@ import { MatIconModule } from '@angular/material/icon';
     MatSelectModule,
     MatButtonModule,
     NavbarComponent,
-    MatIconModule
+    MatIconModule,
+    IMaskModule
   ],
   providers: [ScheduleService, MatSnackBar],
 })

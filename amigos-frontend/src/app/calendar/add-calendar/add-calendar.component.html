@@ -6,7 +6,7 @@
             <form [formGroup]="calendarForm" #formDir="ngForm">
                 <mat-form-field class="col-sm-3">
                     <mat-label>Data</mat-label>
-                    <input matInput formControlName="date" class="form-control custom-input" required />
+                    <input matInput formControlName="date" class="form-control custom-input" [imask]="{ mask: '00/00/0000' }" required />
                 </mat-form-field>
                 <mat-form-field class="col-sm-4" style="margin-left: 10px;">
                     <mat-label>Turma</mat-label>

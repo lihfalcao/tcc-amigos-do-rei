@@ -9,7 +9,7 @@ class Theme extends Model
     protected $table = 'themes'; 
     
     protected $fillable = [
-        'theme_name', 'content', 'resume'
+        'name', 'content', 'resume'
     ];
 
     // Relacionamento com a tabela Schedule

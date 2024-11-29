@@ -163,5 +163,17 @@ export class ScheduleService {
     );
   }
 
+  deleteSchedule(id: any): Observable<any> {
+    const token = localStorage.getItem('auth_token');
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+  
+    return this.initializeSanctum().pipe(
+      switchMap(() =>
+        this.http.delete(`${this.apiUrl}/class/${id}`, { headers, withCredentials: true })
+      )
+    );
+  }
 
 }

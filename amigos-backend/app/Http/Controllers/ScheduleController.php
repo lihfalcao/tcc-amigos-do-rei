@@ -126,4 +126,21 @@ class ScheduleController extends Controller
 
         return response()->json($theme, 201); 
     }
+
+    public function deleteSchedule(Theme $theme)
+    {
+        $user = Auth::guard('sanctum')->user();
+
+        if (!$user) {
+            Log::info('Usuário não autenticado pelo guard Sanctum');
+            return response()->json(['message' => 'Usuário não autenticado'], 401);
+        }
+
+        Log::info('Usuário autenticado', ['user' => $user]);
+
+        Schedule::where('theme_id', $theme->id)->delete();
+        Theme::where('id', $theme->id)->delete();
+
+        return response()->json('true', 201); 
+    }
 }

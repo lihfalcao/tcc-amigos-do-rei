@@ -7,6 +7,7 @@ import { FooterComponent } from '../footer/footer.component';
 import { NavbarComponent } from '../navbar/navbar.component';
 import { MatButtonModule } from '@angular/material/button';
 import { ScheduleService } from '../services/schedule.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-class',
@@ -30,7 +31,8 @@ export class ClassComponent implements OnInit {
     private scheduleService: ScheduleService,
     private route: ActivatedRoute,
     private location: Location,
-    private router: Router
+    private router: Router,
+    private snackBar: MatSnackBar,
   ) {}
 
   ngOnInit() {
@@ -57,6 +59,9 @@ export class ClassComponent implements OnInit {
   }
 
   delete(id: any): void {
-    this.location.back();
+    this.scheduleService.deleteSchedule(id).subscribe((response: any) => {
+      this.snackBar.open('Evento deletado com sucesso!', 'Fechar', { duration: 3000 });
+      this.location.back();
+    });
   }
 }

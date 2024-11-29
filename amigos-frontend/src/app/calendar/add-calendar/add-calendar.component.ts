@@ -10,6 +10,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
 import { ScheduleService } from '../../services/schedule.service';
 import { NavbarComponent } from '../../navbar/navbar.component';
+import { IMaskModule } from 'angular-imask';
 
 @Component({
   selector: 'app-add-calendar',
@@ -24,7 +25,8 @@ import { NavbarComponent } from '../../navbar/navbar.component';
     MatInputModule,
     MatSelectModule,
     MatButtonModule,
-    NavbarComponent
+    NavbarComponent,
+    IMaskModule
   ],
   providers: [ScheduleService, MatSnackBar],
 })

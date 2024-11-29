@@ -33,7 +33,9 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/schedule/passed/{professorId}', [ScheduleController::class, 'getPassedSchedules']);
     Route::post('/schedule', [ScheduleController::class, 'saveSchedule']);
     Route::get('/classes', [ScheduleController::class, 'getClasses']);
-    Route::put('/class/{class}', [ScheduleController::class, 'updateSchedule']);
+    Route::put('/class/{theme}', [ScheduleController::class, 'updateSchedule']);
+    Route::delete('/class/{theme}', [ScheduleController::class, 'deleteSchedule']);
+    Route::post('/class', [ThemeController::class, 'saveTheme']);
     Route::get('/professors', [ScheduleController::class, 'getProfessors']);
     Route::get('/themes', [ThemeController::class, 'getThemes']);
 });

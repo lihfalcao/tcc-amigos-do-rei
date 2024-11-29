@@ -7,7 +7,7 @@
         <div style="display: flex; gap: 20px; justify-content: center; width: 100%;">
           <mat-form-field class="col-sm-4">
             <mat-label>Data</mat-label>
-            <input matInput formControlName="date" required />
+            <input matInput formControlName="date" [imask]="{ mask: '00/00/0000' }" required />
           </mat-form-field>
           <mat-form-field class="col-sm-4">
             <mat-label>Tema</mat-label>
