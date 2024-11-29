@@ -1,0 +1,14 @@
+<div class="menu-container" (click)="toggleMenu()" *ngIf="!menuOpen">
+</div>
+  
+<div class="menu-content" [class.open]="menuOpen">
+    <div class="menu-logo" (click)="toggleMenu()">
+        <img src="../../assets/images/logo-redondo.png" alt="Logo" />
+    </div>
+    <ul class="menu-links">
+        <li><a routerLink="/pagina1">Página 1</a></li>
+        <li><a routerLink="/pagina2">Página 2</a></li>
+        <li><a routerLink="/pagina3">Página 3</a></li>
+    </ul>
+</div>
+  

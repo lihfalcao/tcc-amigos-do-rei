@@ -1,0 +1,77 @@
+/* Botão circular inicial */
+.menu-container {
+    width: 15em;
+    height: 15em;
+    background-size: cover;
+    background-position: center;
+    border-radius: 50%;
+    cursor: pointer;
+    position: fixed;
+    bottom: 2em;
+    left: 1em;
+    background-image: url('../../assets/images/logo-redondo.png');
+    filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+    z-index: 1000;
+    transition: transform 0.3s ease;
+  }
+  
+  /* Retângulo que sobe de baixo */
+  .menu-content {
+    position: fixed;
+    bottom: -100%;
+    left: 0;
+    width: 20em;
+    height: 75vh;
+    background-color: #f9be0e7b;
+    border-radius: 20px 20px 0 0;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    transition: bottom 0.3s ease;
+    z-index: 999;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  /* Quando o menu estiver aberto */
+  .menu-content.open {
+    bottom: 0;
+  }
+  
+  /* Logo reposicionada dentro do retângulo */
+  .menu-logo {
+    width: 15em;
+    height: 15em;
+    margin-top: -8em; /* Ajusta o posicionamento superior */
+    background-size: cover;
+    background-position: center;
+    border-radius: 50%;
+    filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+  }
+  
+  /* Lista de links */
+  .menu-links {
+    margin-top: 2em;
+    list-style: none;
+    padding: 0;
+    text-align: center;
+  }
+  
+  .menu-links li {
+    margin: 1em 0;
+  }
+  
+  .menu-links a {
+    text-decoration: none;
+    font-size: 1.2em;
+    color: black;
+    transition: color 0.2s ease;
+  }
+  
+  .menu-links a:hover {
+    color: #333;
+  }
+  

@@ -5,12 +5,13 @@ import { FooterComponent } from '../footer/footer.component';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { ScheduleService } from '../services/schedule.service';
+import { FloatingMenuComponent } from '../floating-menu/floating-menu.component';
 
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, RouterModule, FooterComponent, NavbarComponent],
+  imports: [CommonModule, RouterModule, FooterComponent, NavbarComponent, FloatingMenuComponent],
   providers: [ScheduleService],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
