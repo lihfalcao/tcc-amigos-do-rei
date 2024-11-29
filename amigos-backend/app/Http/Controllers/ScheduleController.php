@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Schedule;
+use App\Models\Theme;
 use Illuminate\Http\Request;
 use App\Repositories\ScheduleRepository;
 use Illuminate\Support\Facades\Auth;
@@ -14,6 +16,42 @@ class ScheduleController extends Controller
     public function __construct(ScheduleRepository $scheduleRepository)
     {
         $this->scheduleRepository = $scheduleRepository;
+    }
+
+    public function schedules(){
+        $user = Auth::guard('sanctum')->user();
+
+        if (!$user) {
+            Log::info('Usuário não autenticado pelo guard Sanctum');
+            return response()->json(['message' => 'Usuário não autenticado'], 401);
+        }
+
+        Log::info('Usuário autenticado', ['user' => $user]);
+        return response()->json(['schedules' => $this->scheduleRepository->schedules()]);
+    }
+
+    public function getProfessors(){
+        $user = Auth::guard('sanctum')->user();
+
+        if (!$user) {
+            Log::info('Usuário não autenticado pelo guard Sanctum');
+            return response()->json(['message' => 'Usuário não autenticado'], 401);
+        }
+
+        Log::info('Usuário autenticado', ['user' => $user]);
+        return response()->json(['professors' => $this->scheduleRepository->getProfessors()]);
+    }
+
+    public function getClasses(){
+        $user = Auth::guard('sanctum')->user();
+
+        if (!$user) {
+            Log::info('Usuário não autenticado pelo guard Sanctum');
+            return response()->json(['message' => 'Usuário não autenticado'], 401);
+        }
+
+        Log::info('Usuário autenticado', ['user' => $user]);
+        return response()->json(['classes' => $this->scheduleRepository->getClasses()]);
     }
 
     
@@ -57,9 +95,35 @@ class ScheduleController extends Controller
     
     public function saveSchedule(Request $request)
     {
-        $scheduleData = $request->all();
-        $schedule = $this->scheduleRepository->saveSchedule($scheduleData);
+        $user = Auth::guard('sanctum')->user();
+
+        if (!$user) {
+            Log::info('Usuário não autenticado pelo guard Sanctum');
+            return response()->json(['message' => 'Usuário não autenticado'], 401);
+        }
+
+        Log::info('Usuário autenticado', ['user' => $user]);
+
+        $response = $request->all(); 
+        $schedule = $this->scheduleRepository->saveSchedule($response);
 
         return response()->json($schedule, 201); 
+    }
+
+    public function updateSchedule(Theme $theme, Request $request)
+    {
+        $user = Auth::guard('sanctum')->user();
+
+        if (!$user) {
+            Log::info('Usuário não autenticado pelo guard Sanctum');
+            return response()->json(['message' => 'Usuário não autenticado'], 401);
+        }
+
+        Log::info('Usuário autenticado', ['user' => $user]);
+
+        $themeData = $request->all();
+        $theme = $this->scheduleRepository->updateScheduleByTheme($theme->id, $themeData);
+
+        return response()->json($theme, 201); 
     }
 }

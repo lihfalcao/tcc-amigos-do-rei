@@ -19,9 +19,9 @@ export class ScheduleService {
   }
   
   getSchedulesForLoggedInUser(): Observable<any> {
-    const token = localStorage.getItem('auth_token'); // Pegue o token do localStorage
+    const token = localStorage.getItem('auth_token');
     const headers = new HttpHeaders({
-      'Authorization': `Bearer ${token}` // Adicione o token no cabeçalho
+      'Authorization': `Bearer ${token}`
     });
   
     return this.initializeSanctum().pipe(
@@ -32,9 +32,9 @@ export class ScheduleService {
   }
 
   getFutureSchedulesForLoggedInUser(): Observable<any> {
-    const token = localStorage.getItem('auth_token'); // Pegue o token do localStorage
+    const token = localStorage.getItem('auth_token');
     const headers = new HttpHeaders({
-      'Authorization': `Bearer ${token}` // Adicione o token no cabeçalho
+      'Authorization': `Bearer ${token}`
     });
   
     return this.initializeSanctum().pipe(
@@ -45,21 +45,23 @@ export class ScheduleService {
   }
   
 
-  // Obter eventos passados por professor
-  getPassedSchedulesByProfessor(id: number): Observable<any[]> {
-    return this.http.get<any[]>(`${this.apiUrl}/schedule/passed/${id}`);
-  }
-
-  // Salvar um novo schedule
-  saveSchedule(data: { date: any; professorId: any; classId: any; themeId: any; }): Observable<any> {
-    return this.http.post<any[]>(`${this.apiUrl}/schedule`, data);
-  }
-
-  // Outras requisições simples
-  getTheme(id: any): Observable<any> {
-    const token = localStorage.getItem('auth_token'); // Pegue o token do localStorage
+  getSchedules(): Observable<any> {
+    const token = localStorage.getItem('auth_token');
     const headers = new HttpHeaders({
-      'Authorization': `Bearer ${token}` // Adicione o token no cabeçalho
+      'Authorization': `Bearer ${token}`
+    });
+  
+    return this.initializeSanctum().pipe(
+      switchMap(() =>
+        this.http.get(`${this.apiUrl}/schedules`, { headers, withCredentials: true })
+      )
+    );
+  }
+
+  getTheme(id: any): Observable<any> {
+    const token = localStorage.getItem('auth_token');
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
     });
   
     return this.initializeSanctum().pipe(
@@ -69,15 +71,97 @@ export class ScheduleService {
     );
   }
 
-  getClasses(): Observable<any[]> {
-    return this.http.get<any[]>(`${this.apiUrl}/classes`);
+  getSchedule(id: any): Observable<any> {
+    const token = localStorage.getItem('auth_token');
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+  
+    return this.initializeSanctum().pipe(
+      switchMap(() =>
+        this.http.get(`${this.apiUrl}/schedule/${id}`, { headers, withCredentials: true })
+      )
+    );
   }
 
-  getThemes(): Observable<any[]> {
-    return this.http.get<any[]>(`${this.apiUrl}/themes`);
+
+  getThemes(): Observable<any> {
+    const token = localStorage.getItem('auth_token');
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+  
+    return this.initializeSanctum().pipe(
+      switchMap(() =>
+        this.http.get(`${this.apiUrl}/themes`, { headers, withCredentials: true })
+      )
+    );
   }
 
-  saveTheme(data: { themeName: any; content: any; resume: any; }): Observable<any> {
-    return this.http.post<any[]>(`${this.apiUrl}/themes`, data);
+  getClasses(): Observable<any> {
+    const token = localStorage.getItem('auth_token');
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+  
+    return this.initializeSanctum().pipe(
+      switchMap(() =>
+        this.http.get(`${this.apiUrl}/classes`, { headers, withCredentials: true })
+      )
+    );
   }
+
+  getProfessors(): Observable<any> {
+    const token = localStorage.getItem('auth_token');
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+  
+    return this.initializeSanctum().pipe(
+      switchMap(() =>
+        this.http.get(`${this.apiUrl}/professors`, { headers, withCredentials: true })
+      )
+    );
+  }
+
+  updateTheme(id: any, data: []): Observable<any> {
+    const token = localStorage.getItem('auth_token');
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+  
+    return this.initializeSanctum().pipe(
+      switchMap(() =>
+        this.http.put(`${this.apiUrl}/class/${id}`, data, { headers, withCredentials: true })
+      )
+    );
+  }
+
+  saveSchedule(data: []): Observable<any> {
+    const token = localStorage.getItem('auth_token');
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+  
+    return this.initializeSanctum().pipe(
+      switchMap(() =>
+        this.http.post(`${this.apiUrl}/schedule`, data, { headers, withCredentials: true })
+      )
+    );
+  }
+
+  saveTheme(data: any): Observable<any> {
+    const token = localStorage.getItem('auth_token');
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+  
+    return this.initializeSanctum().pipe(
+      switchMap(() =>
+        this.http.post(`${this.apiUrl}/class`, data, { headers, withCredentials: true })
+      )
+    );
+  }
+
+
 }

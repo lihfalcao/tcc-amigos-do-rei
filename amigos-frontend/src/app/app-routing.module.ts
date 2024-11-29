@@ -7,6 +7,7 @@ import { ProfileComponent } from './profile/profile.component';
 import { ClassComponent } from './class/class.component';
 import { CalendarComponent } from './calendar/calendar.component';
 import { AddCalendarComponent } from './calendar/add-calendar/add-calendar.component';
+import { EditClassComponent } from './class/edit-class/edit-class.component';
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
@@ -15,6 +16,8 @@ const routes: Routes = [
   { path: 'aula/:id', component: ClassComponent, canActivate: [AuthGuard] },
   { path: 'calendario', component: CalendarComponent, canActivate: [AuthGuard] },
   { path: 'calendario/adicionar', component: AddCalendarComponent, canActivate: [AuthGuard] },
+  { path: 'classe/editar/:id', component: EditClassComponent, canActivate: [AuthGuard] },
+
 ];
 
 @NgModule({

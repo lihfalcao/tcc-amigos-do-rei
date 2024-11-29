@@ -8,7 +8,6 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
-import { MatDatepickerModule } from '@angular/material/datepicker';
 import { ScheduleService } from '../../services/schedule.service';
 import { NavbarComponent } from '../../navbar/navbar.component';
 
@@ -25,8 +24,7 @@ import { NavbarComponent } from '../../navbar/navbar.component';
     MatInputModule,
     MatSelectModule,
     MatButtonModule,
-    NavbarComponent,
-    MatDatepickerModule
+    NavbarComponent
   ],
   providers: [ScheduleService, MatSnackBar],
 })
@@ -65,24 +63,23 @@ export class AddCalendarComponent {
 
   getClasses() {
     this.scheduleService.getClasses().subscribe((response) => {
-      this.classes = response;
+      this.classes = response.classes;
     });
   }
 
   getThemes() {
     this.scheduleService.getThemes().subscribe((response) => {
-      this.themes = response;
+      this.themes = response.themes;
     });
   }
 
   getProfessors() {
-    // this.professorService.getProfessors().subscribe((response) => {
-    //   this.professors = response;
-    // });
+    this.scheduleService.getProfessors().subscribe((response) => {
+      this.professors = response.professors;
+    });
   }
 
   submit(data: any) {
-    const dateValue = this.calendarForm.get('date')?.value ?? '0000-00-00';
     if (this.calendarForm.get('theme')?.value === 'novo') {
       const themeData = {
         themeName: this.calendarForm.get('themeName')?.value,
@@ -91,19 +88,19 @@ export class AddCalendarComponent {
       };
       this.scheduleService.saveTheme(themeData).subscribe((response) => {
         const eventData = {
-          date: format(new Date(dateValue), 'yyyy-MM-dd'),
-          professorId: this.calendarForm.get('professor')?.value,
-          classId: this.calendarForm.get('class')?.value,
-          themeId: response.id,
+          date: this.calendarForm.get('date')?.value,
+          user_id: this.calendarForm.get('professor')?.value,
+          class_id: this.calendarForm.get('class')?.value,
+          theme_id: response.id,
         };
         this.saveEvent(eventData);
       });
     } else {
       const eventData = {
-        date: format(new Date(dateValue), 'yyyy-MM-dd'),
-        professorId: this.calendarForm.get('professor')?.value,
-        classId: this.calendarForm.get('class')?.value,
-        themeId: this.calendarForm.get('theme')?.value,
+        date: this.calendarForm.get('date')?.value,
+        user_id: this.calendarForm.get('professor')?.value,
+        class_id: this.calendarForm.get('class')?.value,
+        theme_id: this.calendarForm.get('theme')?.value,
       };
       this.saveEvent(eventData);
     }

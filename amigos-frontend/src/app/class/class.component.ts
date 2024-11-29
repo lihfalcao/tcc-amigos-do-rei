@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
@@ -29,7 +29,8 @@ export class ClassComponent implements OnInit {
   constructor(
     private scheduleService: ScheduleService,
     private route: ActivatedRoute,
-    private location: Location
+    private location: Location,
+    private router: Router
   ) {}
 
   ngOnInit() {
@@ -48,6 +49,14 @@ export class ClassComponent implements OnInit {
   }
 
   goBack(): void {
+    this.location.back();
+  }
+
+  medias(id: any): void {
+    this.router.navigate(['/midias/', id]);
+  }
+
+  delete(id: any): void {
     this.location.back();
   }
 }
