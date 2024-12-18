@@ -53,25 +53,58 @@
   }
   
   /* Lista de links */
-  .menu-links {
-    margin-top: 2em;
-    list-style: none;
-    padding: 0;
-    text-align: center;
-  }
-  
-  .menu-links li {
-    margin: 1em 0;
-  }
-  
-  .menu-links a {
-    text-decoration: none;
-    font-size: 1.2em;
-    color: black;
-    transition: color 0.2s ease;
-  }
-  
-  .menu-links a:hover {
-    color: #333;
-  }
+  /* Lista de links */
+.menu-links {
+  margin-top: 2em;
+  list-style: none;
+  padding: 0;
+  text-align: center;
+}
+
+.menu-links li {
+  margin: 1em 0;
+  position: relative; /* Necessário para posicionar o retângulo azul */
+}
+
+.menu-links a {
+  text-decoration: none;
+  font-size: 1.2em;
+  color: black;
+  cursor: pointer;
+  padding: 0.5em 1em; /* Espaçamento interno para melhor clique */
+  position: relative;
+  z-index: 1; /* Para que o texto fique acima do retângulo */
+  transition: color 0.3s ease, transform 0.3s ease;
+}
+
+/* Retângulo azul atrás do texto */
+.menu-links a::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%) scale(0); /* Inicia escondido com escala 0 */
+  width: calc(100% + 5em);
+  height: 100%;
+  background-color: rgba(0, 0, 255, 0.2); /* Azul com transparência */
+  border-radius: 5px;
+  z-index: 0; /* Para aparecer atrás do texto */
+  transition: transform 0.3s ease, opacity 0.3s ease; /* Animação suave */
+  opacity: 0; /* Invisível por padrão */
+}
+
+/* Efeito hover ou foco (aparece o retângulo azul e realça o texto) */
+.menu-links a:hover::before,
+.menu-links a:focus::before,
+.menu-links a:active::before {
+  transform: translateX(-50%) scale(1); /* Aparece com escala 1 */
+  opacity: 1;
+}
+
+.menu-links a:hover,
+.menu-links a:focus,
+.menu-links a:active {
+  color: #0056b3; /* Texto azul escuro ao interagir */
+  transform: scale(1.05); /* Pequeno aumento no tamanho do texto */
+}
   

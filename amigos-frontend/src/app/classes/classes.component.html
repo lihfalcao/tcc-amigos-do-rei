@@ -1,0 +1,76 @@
+<app-navbar [actualPage]="'home'"></app-navbar>
+
+<div class="home" style="padding-bottom: 5em">
+  <div>
+      <app-floating-menu></app-floating-menu>
+  </div>
+  <div class="container mt-4" style="padding-left: 10em;">
+    <!-- Botão Adicionar Nova Turma -->
+    <button class="btn btn-primary mb-3 mt-2 float-right" routerLink="/turma/adicionar">
+      Adicionar Nova Turma
+    </button>
+
+    <!-- Tabela de Turmas -->
+    <table class="table table-hover table-striped">
+      <thead>
+        <tr>
+          <th>Turmas</th>
+          <th width="1em"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let class of classes" [class.selected-row]="expandedClassId === class.id">
+          <!-- Nome da Turma -->
+          <td>
+            <button [ngClass]="{'expanded': expandedClassId === class.id}"  
+            class="btn btn-link turma-nome" (click)="toggleTurma(class.id)">
+              {{ class.name }} 
+              <small *ngIf="class.name != 'Louvor'">({{class.start_age}} à {{class.end_age}} anos - 
+                {{class.shift == 'morning' ? 'manhã' : 'noite'}})
+              </small>
+              <span *ngIf="expandedClassId === class.id" class="toggle-icon">▲</span>
+              <span *ngIf="expandedClassId !== class.id" class="toggle-icon">▼</span>
+            </button>
+
+            <!-- Conteúdo Expandido -->
+            <div *ngIf="expandedClassId === class.id" class="content-expandido mt-2">
+               <!-- Adicionar Criança -->
+               <div class="section mt-3">
+                <select [(ngModel)]="selectedProfessor" class="form-control form-control-sm d-inline-block w-50">
+                  <option value=null>Adicione um novo professor...</option>"
+                  <option *ngFor="let professor of professors" [value]="professor.id">
+                    {{ professor.name }}
+                  </option>
+                </select>
+                <button class="btn btn-success btn-sm ml-2" (click)="addProfessor(class.id)">
+                  <mat-icon style="height: auto; width: auto;">add</mat-icon>
+                </button>
+              </div>
+              <!-- Professores -->
+              <div class="section mt-3">
+                <h4>Professores</h4>
+                <ul class="list-group">
+                  <li *ngFor="let professor of class.professor_has_classes" class="list-group-item d-flex justify-content-between align-items-center">
+                    {{ professor.professor.name }}
+                    <button class="btn btn-sm btn-danger" (click)="deleteProfessor(class.id, professor.professor.id)">
+                      <mat-icon style="height: auto; width: auto;">close</mat-icon>
+                    </button>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </td>
+
+          <!-- Botão Deletar Turma -->
+          <td class="text-center">
+            <button class="btn btn-danger btn-sm" (click)="deleteClass(class.id)">
+              <mat-icon style="height: auto; width: auto;">delete</mat-icon>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<app-footer></app-footer>

@@ -1,0 +1,47 @@
+<app-navbar [actualPage]="'class'"></app-navbar>
+<div class="container">
+    <div class="info">
+        <div class="retangulo-interno">
+            <h1>Adicione uma nova Turma</h1>
+            <form [formGroup]="classForm" #formDir="ngForm">
+                  <mat-form-field class="col-sm-4" style="margin-left: 10px;">
+                    <mat-label>Turma</mat-label>
+                    <input matInput type="text" formControlName="name">
+                  </mat-form-field>
+                  <mat-form-field class="col-sm-4" style="margin-left: 10px;">
+                    <mat-label>Idade Inicial</mat-label>
+                    <input matInput type="number" min="0" formControlName="start_age">
+                  </mat-form-field>
+                  <mat-form-field class="col-sm-4" style="margin-left: 10px;">
+                    <mat-label>Idade Final</mat-label>
+                    <input matInput type="number" min="0" formControlName="end_age">
+                  </mat-form-field>
+                  <mat-form-field class="col-sm-4" style="margin-left: 10px;">
+                    <mat-label>Turno</mat-label>
+                    <mat-select formControlName="shift">
+                        <mat-option value="morning">Manhã</mat-option>
+                        <mat-option value="evening">Noite</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                  <div>
+                    <button 
+                        type="submit"
+                        class="btn btn-warning text-white"
+                        [routerLink]="['/turmas']"
+                    >
+                        Voltar
+                    </button>
+                    <button 
+                        style="margin-left: 20px;"
+                        type="submit"
+                        class="btn btn-success text-white"
+                        (click)="submit(classForm.value)"
+                        [disabled]="!classForm.valid"
+                    >
+                        Salvar
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

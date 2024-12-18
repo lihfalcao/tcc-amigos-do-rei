@@ -1,6 +1,7 @@
 import { Injectable } from "@angular/core";
 import { map, Observable, switchMap } from "rxjs";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { truncateSync } from "fs";
 
 @Injectable()
 export class ScheduleService {
@@ -176,4 +177,54 @@ export class ScheduleService {
     );
   }
 
+  addProfessorInClass(data: any): Observable<any> {
+    const token = localStorage.getItem('auth_token');
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+  
+    return this.initializeSanctum().pipe(
+      switchMap(() =>
+        this.http.post(`${this.apiUrl}/professorByClass`, data, { headers, withCredentials: true })
+      )
+    );
+  }
+
+  deleteProfessorByClass(classId: number, professorId: number): Observable<any> {
+    const token = localStorage.getItem('auth_token');
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+  
+    return this.initializeSanctum().pipe(
+      switchMap(() =>
+        this.http.delete(`${this.apiUrl}/professorByClass/${classId}/${professorId}`, { headers, withCredentials: true })
+      )
+    );
+  }
+  
+  deleteClass(id: number): Observable<any> {
+    const token = localStorage.getItem('auth_token');
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+  
+    return this.initializeSanctum().pipe(
+      switchMap(() =>
+        this.http.delete(`${this.apiUrl}/class/delete/${id}`, { headers, withCredentials: true })
+      )
+    );
+  }
+  saveClass(data: any): Observable<any> {
+    const token = localStorage.getItem('auth_token');
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+  
+    return this.initializeSanctum().pipe(
+      switchMap(() =>
+        this.http.post(`${this.apiUrl}/class/add`, data, { headers, withCredentials: true })
+      )
+    );
+  }
 }
