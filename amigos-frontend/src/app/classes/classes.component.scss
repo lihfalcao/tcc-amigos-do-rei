@@ -1,0 +1,113 @@
+button {
+    cursor: pointer;
+  }
+  
+  ul {
+    list-style-type: none;
+    padding: 0;
+  }
+
+.classes {
+    padding-left: 10em;
+}
+
+.home {
+  overflow-y: auto;
+}
+/* Estilo geral */
+.container {
+    font-family: 'Arial', sans-serif;
+  }
+  
+  .table th {
+    background-color: #f8f9fa;
+  }
+  
+  .table td {
+    vertical-align: middle;
+  }
+  
+  .btn-delete {
+    padding: 4px 6px;
+    font-size: 12px;
+  }
+  
+  /* Destaque para a turma selecionada */
+  .selected-row {
+    background-color: #ffebd2 !important; /* Cor de destaque */
+    font-weight: bold;
+  }
+  
+  .turma-nome {
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: black;
+    text-decoration: none;
+  }
+  
+  .turma-nome:hover
+  {
+    color: #007bff;
+  }
+
+  .turma-nome.expanded {
+    color: #007bff;
+  }
+
+  .toggle-icon {
+    font-size: 0.9rem;
+    margin-left: 5px;
+  }
+  
+  /* Seções expandíveis */
+  .content-expandido {
+    border-left: 4px solid #007bff;
+    padding-left: 10px;
+  }
+  
+  .section h6 {
+    font-weight: bold;
+    color: #495057;
+  }
+  
+  /* Lista de crianças e professores */
+  .list-group-item {
+    background-color: #f8f9fa;
+    border: 1px solid #dee2e6;
+  }
+  
+  .btn-sm mat-icon {
+    font-size: 16px;
+  }
+
+  /* Tabela de turmas */
+.table th {
+    background-color: #f8f9fa;
+  }
+  
+  .table td {
+    vertical-align: middle;
+  }
+  
+  /* Botões */
+  .btn-sm {
+    padding: 4px 8px;
+  }
+  
+  .btn-delete mat-icon {
+    font-size: 18px;
+  }
+  
+  .select-container {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+  
+  select.form-control-sm {
+    font-size: 14px;
+    height: auto;
+    margin-right: 5px;
+  }
+  
+  

@@ -77,7 +77,7 @@ class ScheduleRepository
     }
 
     public function getClasses(){
-        return Classes::select(['id', 'name'])->get();
+        return Classes::select(['id', 'name', 'start_age', 'end_age', 'shift'])->with(['professorHasClasses.professor'])->get();
     }
 
     public function updateScheduleByTheme($themeId, $data){
@@ -117,5 +117,18 @@ class ScheduleRepository
         Schedule::whereNotIn('id', $ids)->where('theme_id', $data['themeId'])->delete();
 
         return true;
+    }
+
+    public function saveClass(array $data)
+    {
+        $class = [
+            'name' => $data['name'],
+            'start_age' => $data['start_age'],
+            'end_age' => $data['end_age'],
+            'shift' => $data['shift'],
+            'created_at' => new Date('Y-m-d H:i:s'),
+            'updated_at' => new Date('Y-m-d H:i:s'),
+        ];
+        return Classes::create($class);
     }
 }

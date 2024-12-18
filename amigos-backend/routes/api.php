@@ -38,6 +38,11 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::post('/class', [ThemeController::class, 'saveTheme']);
     Route::get('/professors', [ScheduleController::class, 'getProfessors']);
     Route::get('/themes', [ThemeController::class, 'getThemes']);
+    Route::post('/class/add', [ScheduleController::class, 'saveClass']);
+    Route::delete('/class/delete/{class}', [ScheduleController::class, 'deleteClass']);
+    Route::post('/professorByClass', [ScheduleController::class, 'addProfessorInClass']);
+    Route::delete('/professorByClass/{class}/{user}', [ScheduleController::class, 'deleteProfessorInClass']);
+
 });
 
 // Rotas públicas
