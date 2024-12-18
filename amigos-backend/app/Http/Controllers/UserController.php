@@ -30,11 +30,11 @@ class UserController extends Controller
             'login' => 'required|string|max:50|unique:users',
             'password' => 'required|string|min:8',
             'type' => 'required|in:admin,parent,professor',
-            'status' => 'boolean',
             'gender' => 'nullable|string|max:50'
         ]);
 
         $data['password'] = Hash::make($data['password']);
+        $data['status'] = 1;
 
         $user = $this->userRepository->create($data);
 

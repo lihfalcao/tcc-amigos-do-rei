@@ -10,6 +10,7 @@ import { AddCalendarComponent } from './calendar/add-calendar/add-calendar.compo
 import { EditClassComponent } from './class/edit-class/edit-class.component';
 import { ClassesComponent } from './classes/classes.component';
 import { AddClassComponent } from './classes/add-class/add-class.component';
+import { RegisterComponent } from './Register/register.component';
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
@@ -21,6 +22,7 @@ const routes: Routes = [
   { path: 'classe/editar/:id', component: EditClassComponent, canActivate: [AuthGuard] },
   { path: 'turmas', component: ClassesComponent, canActivate: [AuthGuard] },
   { path: 'turma/adicionar', component: AddClassComponent, canActivate: [AuthGuard] },
+  { path: 'cadastrar', component: RegisterComponent, canActivate: [AuthGuard] },
 
 ];
 

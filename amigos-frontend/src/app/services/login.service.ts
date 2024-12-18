@@ -92,6 +92,19 @@ export class LoginService {
       )
     );
   }
+
+  saveUser(data: any): Observable<any> {
+    const token = localStorage.getItem('auth_token'); // Pegue o token do localStorage
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}` // Adicione o token no cabeçalho
+    });
+  
+    return this.initializeSanctum().pipe(
+      switchMap(() =>
+        this.http.post(`${this.apiUrl}/users`, data, { headers, withCredentials: true })
+      )
+    );
+  }
   
   
 }

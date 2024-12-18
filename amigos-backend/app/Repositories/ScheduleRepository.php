@@ -73,7 +73,7 @@ class ScheduleRepository
     }
 
     public function getProfessors(){
-        return Professor::select(['id', 'name'])->get();
+        return Professor::select(['id', 'name'])->where('type','!=', 'parent')->get();
     }
 
     public function getClasses(){

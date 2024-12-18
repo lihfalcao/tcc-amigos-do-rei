@@ -1,0 +1,66 @@
+<app-navbar [actualPage]="'class'"></app-navbar>
+<div>
+  <app-floating-menu></app-floating-menu>
+</div>
+<div class="container">
+    <div class="info">
+        <div class="retangulo-interno">
+            <h1>Cadastrar Usuário</h1>
+            <form [formGroup]="classForm" #formDir="ngForm">
+                  <mat-form-field class="col-sm-3" style="margin-left: 10px;">
+                    <mat-label>Nome</mat-label>
+                    <input matInput type="text" formControlName="name">
+                  </mat-form-field>
+                  <mat-form-field class="col-sm-3" style="margin-left: 10px;">
+                    <mat-label>Telefone</mat-label>
+                    <input matInput type="text" [imask]="{ mask: '(00) 00000-0000' }" formControlName="phone">
+                  </mat-form-field>
+                  <mat-form-field class="col-sm-3" style="margin-left: 10px;">
+                    <mat-label>Email</mat-label>
+                    <input matInput type="text" formControlName="email">
+                  </mat-form-field>
+                  <mat-form-field class="col-sm-3" style="margin-left: 10px;">
+                    <mat-label>Gênero</mat-label>
+                    <mat-select formControlName="gender">
+                        <mat-option value="female">Feminino</mat-option>
+                        <mat-option value="male">Masculino</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                  <mat-form-field class="col-sm-3" style="margin-left: 10px;">
+                    <mat-label>Tipo de Login</mat-label>
+                    <mat-select formControlName="type">
+                        <mat-option value="admin">Administrador</mat-option>
+                        <mat-option value="parent">Pai</mat-option>
+                        <mat-option value="professor">Professor</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                  <mat-form-field class="col-sm-3" style="margin-left: 10px;">
+                    <mat-label>Login</mat-label>
+                    <input matInput type="text" formControlName="login">
+                  </mat-form-field>
+                  <mat-form-field class="col-sm-3" style="margin-left: 10px;">
+                    <mat-label>Senha</mat-label>
+                    <input matInput type="password" formControlName="password">
+                  </mat-form-field>                
+                  <div>
+                    <button 
+                        type="submit"
+                        class="btn btn-warning text-white"
+                        [routerLink]="['/turmas']"
+                    >
+                        Voltar
+                    </button>
+                    <button 
+                        style="margin-left: 20px;"
+                        type="submit"
+                        class="btn btn-success text-white"
+                        (click)="submit(classForm.value)"
+                        [disabled]="!classForm.valid"
+                    >
+                        Salvar
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
