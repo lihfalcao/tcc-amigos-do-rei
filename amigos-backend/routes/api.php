@@ -23,6 +23,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/user', [UserController::class, 'loggedUser']);
     Route::put('/user', [UserController::class, 'updateLoggedUser']);
     Route::post('/user/avatar', [UserController::class, 'uploadAvatar']);
+    Route::put('/users', [UserController::class, 'store']);
     Route::put('/users/{user}', [UserController::class, 'update']);
     Route::delete('/users/{user}', [UserController::class, 'destroy']);
     Route::post('/logout', [UserController::class, 'logout']);
