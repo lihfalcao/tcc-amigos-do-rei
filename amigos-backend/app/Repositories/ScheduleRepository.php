@@ -31,7 +31,6 @@ class ScheduleRepository
 
     public function getSchedulesForLoggedInUser(User $user)
     {
-        
         $professorId = $user->id;
 
         return $this->getSchedulesForProfessor($professorId);
