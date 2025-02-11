@@ -1,23 +1,35 @@
-# Usar a imagem oficial do Node.js como base
-FROM node:18
+# Etapa de build usando Node.js
+FROM node:18 AS builder
 
-# Definir o diretório de trabalho
+# Definir diretório de trabalho
 WORKDIR /app
 
-# Copiar o package.json e o package-lock.json
-COPY package*.json ./ 
+# Copiar arquivos de dependências
+COPY package*.json ./
 
-# Instalar dependências
+# Instalar apenas as dependências de produção
 RUN npm install
 
 # Instalar Angular CLI globalmente
 RUN npm install -g @angular/cli
 
-# Copiar o restante do código-fonte
+# Copiar o código-fonte
 COPY . .
 
-# Expor a porta padrão do Angular
-EXPOSE 4200
+# Gerar a build otimizada para produção
+RUN ng build --configuration=production
 
-# Rodar a aplicação Angular no modo desenvolvimento com polling
-CMD ["ng", "serve", "--host", "0.0.0.0", "--poll", "2000"]
+# Etapa final: usar Nginx para servir os arquivos estáticos
+FROM nginx:alpine
+
+# Copiar configuração personalizada do Nginx
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+
+# Copiar arquivos gerados pelo build Angular para a pasta padrão do Nginx
+COPY --from=builder /app/dist/* /usr/share/nginx/html
+
+# Expor a porta 80 para o CapRover reconhecer a aplicação
+EXPOSE 80
+
+# Comando padrão do Nginx
+CMD ["nginx", "-g", "daemon off;"]
